@@ -1,5 +1,7 @@
 #!/bin/sh
-# Arranca en modo produccion
+# Arranca con unicorn --suponiendo que ya se ejecutaron otras labores
+#   necesarias para ejecutar como instalar gemas, generar recursos, 
+#   actualizar indices, etc.  Ver bin/corre
 
 if (test "${SECRET_KEY_BASE}" = "") then {
 	echo "Definir variable de ambiente SECRET_KEY_BASE"
@@ -23,7 +25,5 @@ DOAS=`which doas 2> /dev/null`
 if (test "$?" != "0") then {
 	DOAS="sudo"
 } fi;
-$DOAS su - ${USUARIO_AP} -c "cd $DIRAP; RAILS_ENV=production ${defuroot} bin/rails assets:precompile"
-$DOAS su - ${USUARIO_AP} -c "cd $DIRAP; ${defuroot} RAILS_ENV=production bin/rails sip:indices"
-$DOAS su - ${USUARIO_AP} -c "cd $DIRAP; echo \"Iniciando unicorn...\"; ${defuroot} PUERTOUNICORN=${PUERTOUNICORN} CONFIG_HOSTS=${CONFIG_HOSTS} DIRAP=$DIRAP RAILS_ENV=production SECRET_KEY_BASE=${SECRET_KEY_BASE} bundle exec /usr/local/bin/unicorn_rails -c $DIRAP/config/unicorn.conf.minimal.rb  -E production -D"
+$DOAS su - ${USUARIO_AP} -c "cd $DIRAP; echo \"== Iniciando unicorn... ==\"; ${defuroot} PUERTOUNICORN=${PUERTOUNICORN} CONFIG_HOSTS=${CONFIG_HOSTS} DIRAP=$DIRAP RAILS_ENV=production SECRET_KEY_BASE=${SECRET_KEY_BASE} bundle exec /usr/local/bin/unicorn_rails -c $DIRAP/config/unicorn.conf.minimal.rb  -E production -D"
 

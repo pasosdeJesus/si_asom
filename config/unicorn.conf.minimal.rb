@@ -19,8 +19,6 @@ if !ENV['PROCESOSUNICORN'].nil?
   procesos=ENV['PROCESOSUNICORN'].to_i
 end
 
-
-
 listen ENV['PUERTOUNICORN'] # by default Unicorn listens on port 8080
 APP_PATH = ENV['DIRAP'] #"/var/www/htdocs/sivel2"
 working_directory APP_PATH
