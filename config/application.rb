@@ -26,6 +26,7 @@ module Sivel2
     config.hosts << ENV.fetch('CONFIG_HOSTS', '127.0.0.1')
 
     config.relative_url_root = ENV.fetch('RUTA_RELATIVA', '/asom/si')
+    puts "config.relative_url_root=#{config.relative_url_root}"
 
 
     # sip
@@ -35,6 +36,7 @@ module Sivel2
     config.x.heb412_ruta = Pathname(
       ENV.fetch('HEB412_RUTA', Rails.root.join('public', 'heb412').to_s)
     )
+    puts "config.x.heb412_ruta=#{config.x.heb412_ruta}"
 
     # sivel2
     config.x.sivel2_consulta_web_publica = 
