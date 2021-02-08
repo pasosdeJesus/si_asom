@@ -47,4 +47,4 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV.fetch('BD_PRUEBA', 'siasom_pro') %>
+  database: <%= ENV.fetch('BD_PRO', 'siasom_pro') %>
