@@ -79,7 +79,7 @@ gem 'sivel2_gen', # Motor para manejo de casos
   #path: '../sivel2_gen'
 
 gem 'cor1440_gen', # Motor para manejo de casos
-  git: 'https://github.com/pasosdeJesus/cor1440_gen.git'
+  git: 'https://github.com/pasosdeJesus/cor1440_gen.git', branch: :main
   #path: '../cor1440_gen'
 
 
