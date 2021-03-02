@@ -102,7 +102,7 @@ group :development do
 
   gem 'rails-erd'
 
-  gem 'spring' # Acelera ejecutando en fondo. 
+  #gem 'spring' # Acelera ejecutando en fondo. 
 
   gem 'web-console'
 
