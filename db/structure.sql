@@ -1027,7 +1027,9 @@ CREATE TABLE public.cor1440_gen_actividadpf (
     titulo character varying(255),
     descripcion character varying(5000),
     resultadopf_id integer,
-    actividadtipo_id integer
+    actividadtipo_id integer,
+    formulario_id integer,
+    heredade_id integer
 );
 
 
@@ -7420,6 +7422,14 @@ ALTER TABLE ONLY public.cor1440_gen_actividad_rangoedadac
 
 
 --
+-- Name: cor1440_gen_actividadpf fk_rails_16d8cc3b46; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadpf
+    ADD CONSTRAINT fk_rails_16d8cc3b46 FOREIGN KEY (heredade_id) REFERENCES public.cor1440_gen_actividadpf(id);
+
+
+--
 -- Name: mr519_gen_encuestausuario fk_rails_1b24d10e82; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8201,6 +8211,14 @@ ALTER TABLE ONLY public.sivel2_gen_combatiente
 
 ALTER TABLE ONLY public.cor1440_gen_valorcampoact
     ADD CONSTRAINT fk_rails_e36cf046d1 FOREIGN KEY (actividad_id) REFERENCES public.cor1440_gen_actividad(id);
+
+
+--
+-- Name: cor1440_gen_actividadpf fk_rails_e69a8b5822; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadpf
+    ADD CONSTRAINT fk_rails_e69a8b5822 FOREIGN KEY (formulario_id) REFERENCES public.mr519_gen_formulario(id);
 
 
 --
@@ -9074,6 +9092,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210117234541'),
 ('20210201101144'),
 ('20210206191033'),
-('20210226155035');
+('20210226155035'),
+('20210308183041'),
+('20210308211112'),
+('20210308214507');
 
 

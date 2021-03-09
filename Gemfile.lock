@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/pasosdeJesus/cor1440_gen.git
-  revision: 06bb9133c652661f34997fc674b7add66eddb0c3
+  revision: 72210bf11f9af2502df496583a9cd2da04d3417f
   branch: main
   specs:
     cor1440_gen (1.0b3)
@@ -407,4 +407,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   2.2.13
+   2.2.14
