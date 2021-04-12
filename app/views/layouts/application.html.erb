@@ -56,8 +56,10 @@
         <%= opcion_menu "Manual de Cor1440", 
           'https://docs.google.com/document/d/1mmydkqNmZbXkzcpkiegQ_XAP_NkjfX-RXgcW1yzjdpE/edit?usp=sharing', 
           target: '_blank', desplegable: true %>
-      <%= opcion_menu 'Nube', heb412_gen.sisini_path,
-        desplegable: true %>
+        <% if !current_usuario.nil? %>
+          <%= opcion_menu 'Nube', heb412_gen.sisini_path,
+            desplegable: true %>
+        <% end %>
       <% if can? :manage, ::Heb412Gen::Plantillahcm %>
         <%= opcion_menu 'Plantillas para listados en hojas de calculo',
           heb412_gen.plantillashcm_path, desplegable: true %>
@@ -101,7 +103,6 @@
       <%= opcion_menu "Salir #{current_usuario.nusuario}", 
         main_app.sign_out_path %>
     <% else %>
-      <%= opcion_menu 'Acerca de', sivel2_gen.acercade_path %>
       <%= opcion_menu 'Iniciar Sesión', main_app.new_usuario_session_path %> 
     <% end %>
   <% end %>
@@ -110,7 +111,7 @@
 <% content_for :piedepagina do %>
   Datos de <a href='http://asomcauca.org/'>ASOM</a><br>
   Sistema de información con fuentes de 
-  <a href='https://github.com/pasosdeJesus/si_anzorc/'>código abierto</a> 
+  <a href='https://github.com/pasosdeJesus/si_asom/'>código abierto</a> 
   desarrollado por <a href='http://www.pasosdeJesus.org' target='_blank'>Pasos de Jesús</a>. 2021. 
   </span></p>
 <% end %>
