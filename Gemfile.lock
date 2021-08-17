@@ -74,7 +74,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/webpacker
-  revision: 52101e8ef1c5ff9cf946672c7a88f7e8c5f039aa
+  revision: b64434d784257cb9c9b40969d17ac0aa3dc6e73d
   specs:
     webpacker (6.0.0.beta.7)
       activesupport (>= 5.2)
