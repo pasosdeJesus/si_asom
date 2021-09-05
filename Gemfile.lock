@@ -11,10 +11,10 @@ GIT
 
 GIT
   remote: https://github.com/pasosdeJesus/cor1440_gen.git
-  revision: 22eee567c989af373f85e67774266862948534ef
-  branch: bs5
+  revision: ceaee68bd8632073388cda57504d442828f2a3b5
+  branch: main
   specs:
-    cor1440_gen (1.0b4)
+    cor1440_gen (1.0b5)
       devise
       heb412_gen
       jquery-rails
@@ -25,10 +25,10 @@ GIT
 
 GIT
   remote: https://github.com/pasosdeJesus/heb412_gen.git
-  revision: 0f5c9168165e8fffe7f4822ecd462797091d5700
-  branch: bs5
+  revision: e02973d32b7c3f9df37862a0973c7a694667009b
+  branch: main
   specs:
-    heb412_gen (1.0.b6)
+    heb412_gen (1.0.b7)
       mr519_gen
       redcarpet
       rspreadsheet
@@ -36,17 +36,17 @@ GIT
 
 GIT
   remote: https://github.com/pasosdeJesus/mr519_gen.git
-  revision: 1a749da96758da730a40948445950ec58325b4ef
-  branch: bs5
+  revision: 3c81e39b831bc6c4d8f086b33bd7dc82125389c4
+  branch: main
   specs:
-    mr519_gen (0.2.0)
+    mr519_gen (0.2.1)
       rails
       sip
 
 GIT
   remote: https://github.com/pasosdeJesus/sip.git
-  revision: 8ef8dd05f8de25e84c45c3c32db1909a7da898f8
-  branch: bs5
+  revision: 785140129f07bc40259ae21053718254755732d8
+  branch: main
   specs:
     sip (2.0.b12)
       cancancan
@@ -64,10 +64,10 @@ GIT
 
 GIT
   remote: https://github.com/pasosdeJesus/sivel2_gen.git
-  revision: 046b3c5239993b2a3cb03427f7e7b8df793c1452
-  branch: bs5
+  revision: 4d4963c9a75e597d4896ec49c6fe40a2d0c6e38b
+  branch: main
   specs:
-    sivel2_gen (2.0b15)
+    sivel2_gen (2.0b16)
       devise
       jquery-rails
       rails
@@ -195,7 +195,7 @@ GEM
       ruby-graphviz
     erubi (1.10.0)
     execjs (2.8.1)
-    ffi (1.15.3)
+    ffi (1.15.4)
     globalid (0.5.2)
       activesupport (>= 5.0)
     i18n (1.8.10)
@@ -220,7 +220,7 @@ GEM
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2021.0704)
+    mime-types-data (3.2021.0901)
     mimemagic (0.3.10)
       nokogiri (~> 1)
       rake
