@@ -94,11 +94,13 @@
         <% if can? :manage, ::Usuario %>
           <%= opcion_menu 'Usuarios', main_app.usuarios_path,
             desplegable: true %>
-          <%= opcion_menu 'Tablas Básicas', sivel2_gen.tablasbasicas_path,
-            desplegable: true %>
           <%= opcion_menu 'Respaldo cifrado', sip.respaldo7z_path,
             desplegable: true %>
+          <%= opcion_menu 'Tablas Básicas', sivel2_gen.tablasbasicas_path,
+            desplegable: true %>
         <% end %>
+        <%= opcion_menu "Árbol de presuntos responsables",
+          sivel2_gen.arbol_presponsables_path, desplegable: true %>
       <% end %>
       <%= opcion_menu "Salir #{current_usuario.nusuario}", 
         main_app.sign_out_path %>
