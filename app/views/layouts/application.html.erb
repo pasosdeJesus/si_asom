@@ -5,28 +5,28 @@
 <% content_for :menu do %>
   <%= grupo_menus do %>
     <% if !current_usuario.nil? %>
-      <%= despliega_abajo 'Casos' do %>
-        <%= opcion_menu 'Listado', sivel2_gen.casos_path,
-          desplegable: true %>
-        <% if can?(:new, Sivel2Gen::Caso) %>
+      <% if can?(:new, Sivel2Gen::Caso) %>
+        <%= despliega_abajo 'Casos' do %>
+          <%= opcion_menu 'Listado', sivel2_gen.casos_path,
+            desplegable: true %>
           <%= opcion_menu 'Validaciones', sivel2_gen.validarcasos_path,
             desplegable: true %>
           <%= opcion_menu 'Buscar repetidos', 
             sivel2_gen.buscarrepetidos_path, desplegable: true %>
           <%= opcion_menu 'Importar relatos XRLAT', 
             sivel2_gen.casos_importarrelatos_path, desplegable: true %>
+          <%= opcion_menu 'Geolocalización de casos sobre OpenStreetMap',
+            sivel2_gen.casos_mapaosm_path, desplegable: true %>
+          <%= opcion_menu 'Listado de víctimas y casos', 
+            sivel2_gen.victimas_path, desplegable: true %>
+          <%= opcion_menu 'Conteo demografía víctimas', 
+            sivel2_gen.conteos_personas_path, desplegable: true %>
+          <%= opcion_menu 'Conteo general de víctimas', 
+            sivel2_gen.conteos_genvic_path, desplegable: true %>
+          <%= opcion_menu 'Conteo de victimizaciones individuales', 
+            sivel2_gen.conteos_victimizaciones_path,
+            desplegable: true %>
         <% end %>
-        <%= opcion_menu 'Geolocalización de casos sobre OpenStreetMap',
-          sivel2_gen.casos_mapaosm_path, desplegable: true %>
-        <%= opcion_menu 'Listado de víctimas y casos', 
-          sivel2_gen.victimas_path, desplegable: true %>
-        <%= opcion_menu 'Conteo demografía víctimas', 
-          sivel2_gen.conteos_personas_path, desplegable: true %>
-        <%= opcion_menu 'Conteo general de víctimas', 
-          sivel2_gen.conteos_genvic_path, desplegable: true %>
-        <%= opcion_menu 'Conteo de victimizaciones individuales', 
-          sivel2_gen.conteos_victimizaciones_path,
-          desplegable: true %>
       <% end %>
 
       <%= despliega_abajo 'Actividades y Proyectos' do %>
@@ -99,8 +99,10 @@
           <%= opcion_menu 'Tablas Básicas', sivel2_gen.tablasbasicas_path,
             desplegable: true %>
         <% end %>
-        <%= opcion_menu "Árbol de presuntos responsables",
-          sivel2_gen.arbol_presponsables_path, desplegable: true %>
+        <% if can?(:new, Sivel2Gen::Caso) %>
+          <%= opcion_menu "Árbol de presuntos responsables",
+            sivel2_gen.arbol_presponsables_path, desplegable: true %>
+        <% end %>
       <% end %>
       <%= opcion_menu "Salir #{current_usuario.nusuario}", 
         main_app.sign_out_path %>
