@@ -1,0 +1,12 @@
+<%= f.input :bushabilitado,
+  collection: ['SI', 'NO', 'Todos'],
+  label: false,
+  selected: Sip::ModeloHelper.poromision(params, :bushabilitado),
+  input_html: {
+    class: 'chosen-select',
+    'data-enviarautomatico' => '',
+    value: params && params[:filtro] && params[:filtro][:habilitado] ? 
+      params[:filtro][:habilitado] : 'SI'
+  },
+  include_blank: false
+%>
