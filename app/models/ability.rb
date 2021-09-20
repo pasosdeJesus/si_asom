@@ -132,16 +132,13 @@ class Ability  < Cor1440Gen::Ability
         can :nuevo, Sivel2Gen::Combatiente
 
         can :nuevo, Sivel2Gen::Presponsable
-
-        can :nuevo, Sivel2Gen::Victima
-
-        can :nuevo, Sivel2Gen::Victimacolectiva
+        can :manage, Sivel2Gen::Victima
+        can :manage, Sivel2Gen::Victimacolectiva
 
         can :read, Heb412Gen::Doc
         can :read, Heb412Gen::Plantilladoc
         can :read, Heb412Gen::Plantillahcm
         can :read, Heb412Gen::Plantillahcr
-        can :index, Sivel2Gen::Victima
 
         can :manage, Sip::Bitacora, usuario: { id: usuario.id }
 
@@ -156,9 +153,6 @@ class Ability  < Cor1440Gen::Ability
 
         cannot :solocambiaretiquetas, Sivel2Gen::Caso
         can :refresca, Sivel2Gen::Caso
-
-        can :read, Sivel2Gen::Victima
-
       end
 
 
@@ -182,7 +176,8 @@ class Ability  < Cor1440Gen::Ability
       can :manage, Sivel2Gen::Actocolectivo
       can :manage, Sivel2Gen::Caso
       cannot :solocambiaretiquetas, Sivel2Gen::Caso
-      can :read, Sivel2Gen::Victima
+      can :manage, Sivel2Gen::Victima
+      can :manage, Sivel2Gen::Victimacolectiva
 
       can :manage, Usuario
       can :manage, :tablasbasicas
