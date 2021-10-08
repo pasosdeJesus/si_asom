@@ -176,6 +176,7 @@ class Ability  < Cor1440Gen::Ability
       can :manage, Sivel2Gen::Actocolectivo
       can :manage, Sivel2Gen::Caso
       cannot :solocambiaretiquetas, Sivel2Gen::Caso
+      can :manage, Sivel2Gen::Combatiente
       can :manage, Sivel2Gen::Victima
       can :manage, Sivel2Gen::Victimacolectiva
 
