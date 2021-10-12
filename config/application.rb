@@ -43,6 +43,9 @@ module Sivel2
       (ENV['SIVEL2_CONSWEB_PUBLICA'] && ENV['SIVEL2_CONSWEB_PUBLICA'] != '')
       # si es true no puede usarse observador de parte de los casos
 
+    if config.x.sivel2_consulta_web_publica
+      puts "La consulta web está publica" 
+    end
     config.x.sivel2_consweb_max = ENV.fetch('SIVEL2_CONSWEB_MAX', 2000)
 
     config.x.sivel2_consweb_epilogo = ENV.fetch(
