@@ -5873,6 +5873,14 @@ ALTER TABLE ONLY public.sivel2_gen_pconsolidado
 
 
 --
+-- Name: sip_clase sip_clase_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sip_clase
+    ADD CONSTRAINT sip_clase_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: sip_departamento sip_departamento_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9074,6 +9082,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211024105507'),
 ('20211117200456'),
 ('20211119085218'),
-('20211119110211');
+('20211119110211'),
+('20211216125250');
 
 
