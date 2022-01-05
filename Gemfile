@@ -20,6 +20,8 @@ gem 'devise-i18n'
 
 gem 'jbuilder' # API JSON facil. Ver: https://github.com/rails/jbuilder
 
+gem 'jsbundling-rails'
+
 gem 'kt-paperclip',                 # Anexos
   git: 'https://github.com/kreeti/kt-paperclip.git'
 
@@ -53,11 +55,12 @@ gem 'sassc-rails' # Hojas de estilo con SCSS
 
 gem 'simple_form' # Formularios simples 
 
+gem 'sprockets-rails'
+
 gem 'twitter_cldr' # ICU con CLDR
 
 gem 'tzinfo' # Zonas horarias
 
-gem 'webpacker', '~> 6.0.0.rc.1'
 
 gem 'will_paginate' # Listados en páginas
 

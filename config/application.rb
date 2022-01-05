@@ -23,11 +23,12 @@ module Sivel2
 
     config.active_record.schema_format = :sql
 
-    config.hosts << ENV.fetch('CONFIG_HOSTS', '127.0.0.1')
+    puts "CONFIG_HOSTS="+ENV.fetch('CONFIG_HOSTS', 'defensor.info').to_s
+    config.hosts.concat(
+      ENV.fetch('CONFIG_HOSTS', 'defensor.info').downcase.split(";"))
 
     config.relative_url_root = ENV.fetch('RUTA_RELATIVA', '/asom/si')
     puts "config.relative_url_root=#{config.relative_url_root}"
-
 
     # sip
     config.x.formato_fecha = ENV.fetch('SIP_FORMATO_FECHA', 'dd/M/yyyy')

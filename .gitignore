@@ -47,3 +47,4 @@ config/credentials.yml.enc
 .env
 *swp
 public/asom/
+app/assets/builds
