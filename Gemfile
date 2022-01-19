@@ -5,6 +5,8 @@ gem 'apexcharts'
 
 gem 'bcrypt'
 
+gem 'babel-transpiler'
+
 gem 'bootsnap', '>=1.1.0', require: false
 
 gem 'cancancan'
@@ -57,10 +59,13 @@ gem 'simple_form' # Formularios simples
 
 gem 'sprockets-rails'
 
+gem 'stimulus-rails'
+
+gem 'turbo-rails'
+
 gem 'twitter_cldr' # ICU con CLDR
 
 gem 'tzinfo' # Zonas horarias
-
 
 gem 'will_paginate' # Listados en páginas
 
@@ -116,6 +121,8 @@ end
 
 
 group :test do
+  gem 'cuprite'
+
   gem 'capybara'
 
   gem 'selenium-webdriver'

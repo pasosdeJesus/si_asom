@@ -6,3 +6,5 @@
 
 //= link application.css
 //= link_tree ../builds
+//= link recursos_globales.js
+//= link recursos_globales.js.map
