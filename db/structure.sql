@@ -583,7 +583,7 @@ CREATE TABLE public.sivel2_gen_victima (
     updated_at timestamp without time zone,
     id integer DEFAULT nextval('public.victima_seq'::regclass) NOT NULL,
     CONSTRAINT victima_hijos_check CHECK (((hijos IS NULL) OR ((hijos >= 0) AND (hijos <= 100)))),
-    CONSTRAINT victima_orientacionsexual_check CHECK (((orientacionsexual = 'L'::bpchar) OR (orientacionsexual = 'G'::bpchar) OR (orientacionsexual = 'B'::bpchar) OR (orientacionsexual = 'T'::bpchar) OR (orientacionsexual = 'O'::bpchar) OR (orientacionsexual = 'H'::bpchar) OR (orientacionsexual = 'S'::bpchar)))
+    CONSTRAINT victima_orientacionsexual_check CHECK (((orientacionsexual = 'B'::bpchar) OR (orientacionsexual = 'G'::bpchar) OR (orientacionsexual = 'H'::bpchar) OR (orientacionsexual = 'I'::bpchar) OR (orientacionsexual = 'L'::bpchar) OR (orientacionsexual = 'O'::bpchar) OR (orientacionsexual = 'S'::bpchar) OR (orientacionsexual = 'T'::bpchar)))
 );
 
 
@@ -596,7 +596,7 @@ CREATE VIEW public.cben1 AS
     subv.id_victima,
     subv.id_persona,
     1 AS npersona,
-    victima.id_vinculoestado
+    persona.anionac
    FROM public.sivel2_gen_caso caso,
     public.sivel2_gen_victima victima,
     ( SELECT sivel2_gen_victima.id_persona,
@@ -604,7 +604,7 @@ CREATE VIEW public.cben1 AS
            FROM public.sivel2_gen_victima
           GROUP BY sivel2_gen_victima.id_persona) subv,
     public.sip_persona persona
-  WHERE ((subv.id_victima = victima.id) AND (caso.id = victima.id_caso) AND ((persona.anionac IS NULL) OR (persona.anionac = ANY (ARRAY[1938, 1940, 1941, 1942, 1944, 1945, 1946, 1948, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2016]))) AND (victima.id_etnia = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111])) AND (victima.id_filiacion = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])) AND ((((date_part('year'::text, caso.fecha))::text || '-'::text) || lpad((date_part('month'::text, caso.fecha))::text, 2, '0'::text)) = ANY (ARRAY['2018-06'::text, '2019-05'::text, '2020-01'::text, '2020-02'::text, '2020-09'::text, '2020-12'::text, '2021-02'::text, '2021-03'::text, '2021-04'::text, '2021-05'::text, '2021-06'::text, '2021-07'::text, '2021-08'::text, '2021-10'::text])) AND (victima.id_organizacion = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 101])) AND (victima.id_profesion = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 101, 102])) AND (victima.id_rangoedad = ANY (ARRAY[1, 2, 3, 4, 5, 6])) AND (victima.id_sectorsocial = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])) AND (persona.sexo = ANY (ARRAY['F'::bpchar, 'M'::bpchar, 'S'::bpchar])) AND (victima.id_vinculoestado = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40])) AND (persona.id = victima.id_persona));
+  WHERE ((subv.id_victima = victima.id) AND (caso.id = victima.id_caso) AND ((persona.anionac IS NULL) OR (persona.anionac = ANY (ARRAY[1938, 1940, 1941, 1942, 1944, 1945, 1946, 1948, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2007, 2016]))) AND (victima.id_etnia = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111])) AND (victima.id_filiacion = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])) AND ((((date_part('year'::text, caso.fecha))::text || '-'::text) || lpad((date_part('month'::text, caso.fecha))::text, 2, '0'::text)) = ANY (ARRAY['2018-06'::text, '2019-05'::text, '2020-01'::text, '2020-02'::text, '2020-09'::text, '2020-12'::text, '2021-02'::text, '2021-03'::text, '2021-04'::text, '2021-05'::text, '2021-06'::text, '2021-07'::text, '2021-08'::text, '2021-10'::text])) AND (victima.id_organizacion = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 101])) AND (victima.id_profesion = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 101, 102])) AND (victima.id_rangoedad = ANY (ARRAY[1, 2, 3, 4, 5, 6])) AND (victima.id_sectorsocial = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])) AND (persona.sexo = ANY (ARRAY['F'::bpchar, 'M'::bpchar, 'S'::bpchar])) AND (victima.id_vinculoestado = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40])) AND (persona.id = victima.id_persona));
 
 
 --
@@ -746,7 +746,7 @@ CREATE VIEW public.cben2 AS
     cben1.id_victima,
     cben1.id_persona,
     cben1.npersona,
-    cben1.id_vinculoestado,
+    cben1.anionac,
     ubicacion.id_departamento,
     departamento.nombre AS departamento_nombre,
     ubicacion.id_municipio,
@@ -759,7 +759,7 @@ CREATE VIEW public.cben2 AS
      LEFT JOIN public.sip_departamento departamento ON ((ubicacion.id_departamento = departamento.id)))
      LEFT JOIN public.sip_municipio municipio ON ((ubicacion.id_municipio = municipio.id)))
      LEFT JOIN public.sip_clase clase ON ((ubicacion.id_clase = clase.id)))
-  GROUP BY cben1.id_caso, cben1.id_victima, cben1.id_persona, cben1.npersona, cben1.id_vinculoestado, ubicacion.id_departamento, departamento.nombre, ubicacion.id_municipio, municipio.nombre, ubicacion.id_clase, clase.nombre;
+  GROUP BY cben1.id_caso, cben1.id_victima, cben1.id_persona, cben1.npersona, cben1.anionac, ubicacion.id_departamento, departamento.nombre, ubicacion.id_municipio, municipio.nombre, ubicacion.id_clase, clase.nombre;
 
 
 --
@@ -5659,6 +5659,14 @@ ALTER TABLE ONLY public.sivel2_gen_acto
 
 
 --
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
 -- Name: sivel2_gen_caso_etiqueta caso_etiqueta_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5683,11 +5691,59 @@ ALTER TABLE ONLY public.sivel2_gen_categoria
 
 
 --
+-- Name: cor1440_gen_actividad cor1440_gen_actividad_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad
+    ADD CONSTRAINT cor1440_gen_actividad_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: cor1440_gen_actividad_proyecto cor1440_gen_actividad_proyecto_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cor1440_gen_actividad_proyecto
     ADD CONSTRAINT cor1440_gen_actividad_proyecto_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_actividad_proyectofinanciero cor1440_gen_actividad_proyectofinanciero_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_proyectofinanciero
+    ADD CONSTRAINT cor1440_gen_actividad_proyectofinanciero_id_key UNIQUE (id);
+
+
+--
+-- Name: cor1440_gen_actividad_proyectofinanciero cor1440_gen_actividad_proyectofinanciero_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_proyectofinanciero
+    ADD CONSTRAINT cor1440_gen_actividad_proyectofinanciero_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_actividad_rangoedadac cor1440_gen_actividad_rangoedadac_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_rangoedadac
+    ADD CONSTRAINT cor1440_gen_actividad_rangoedadac_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_actividad_sip_anexo cor1440_gen_actividad_sip_anexo_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_sip_anexo
+    ADD CONSTRAINT cor1440_gen_actividad_sip_anexo_id_key UNIQUE (id);
+
+
+--
+-- Name: cor1440_gen_actividad_sip_anexo cor1440_gen_actividad_sip_anexo_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_sip_anexo
+    ADD CONSTRAINT cor1440_gen_actividad_sip_anexo_pkey PRIMARY KEY (id);
 
 
 --
@@ -5699,11 +5755,51 @@ ALTER TABLE ONLY public.cor1440_gen_actividad_valorcampotind
 
 
 --
+-- Name: cor1440_gen_actividadarea cor1440_gen_actividadarea_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadarea
+    ADD CONSTRAINT cor1440_gen_actividadarea_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_actividadpf cor1440_gen_actividadpf_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadpf
+    ADD CONSTRAINT cor1440_gen_actividadpf_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_actividadtipo cor1440_gen_actividadtipo_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadtipo
+    ADD CONSTRAINT cor1440_gen_actividadtipo_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: cor1440_gen_anexo_efecto cor1440_gen_anexo_efecto_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cor1440_gen_anexo_efecto
     ADD CONSTRAINT cor1440_gen_anexo_efecto_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_anexo_proyectofinanciero cor1440_gen_anexo_proyectofinanciero_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_anexo_proyectofinanciero
+    ADD CONSTRAINT cor1440_gen_anexo_proyectofinanciero_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_asistencia cor1440_gen_asistencia_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_asistencia
+    ADD CONSTRAINT cor1440_gen_asistencia_pkey PRIMARY KEY (id);
 
 
 --
@@ -5723,11 +5819,59 @@ ALTER TABLE ONLY public.cor1440_gen_campotind
 
 
 --
+-- Name: cor1440_gen_caracterizacionpersona cor1440_gen_caracterizacionpersona_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_caracterizacionpersona
+    ADD CONSTRAINT cor1440_gen_caracterizacionpersona_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_datointermedioti cor1440_gen_datointermedioti_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_datointermedioti
+    ADD CONSTRAINT cor1440_gen_datointermedioti_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_datointermedioti_pmindicadorpf cor1440_gen_datointermedioti_pmindicadorpf_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_datointermedioti_pmindicadorpf
+    ADD CONSTRAINT cor1440_gen_datointermedioti_pmindicadorpf_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: cor1440_gen_desembolso cor1440_gen_desembolso_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cor1440_gen_desembolso
     ADD CONSTRAINT cor1440_gen_desembolso_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_efecto cor1440_gen_efecto_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_efecto
+    ADD CONSTRAINT cor1440_gen_efecto_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_financiador cor1440_gen_financiador_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_financiador
+    ADD CONSTRAINT cor1440_gen_financiador_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_indicadorpf cor1440_gen_indicadorpf_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_indicadorpf
+    ADD CONSTRAINT cor1440_gen_indicadorpf_pkey PRIMARY KEY (id);
 
 
 --
@@ -5763,6 +5907,94 @@ ALTER TABLE ONLY public.cor1440_gen_informenarrativo
 
 
 --
+-- Name: cor1440_gen_mindicadorpf cor1440_gen_mindicadorpf_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_mindicadorpf
+    ADD CONSTRAINT cor1440_gen_mindicadorpf_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_objetivopf cor1440_gen_objetivopf_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_objetivopf
+    ADD CONSTRAINT cor1440_gen_objetivopf_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_pmindicadorpf cor1440_gen_pmindicadorpf_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_pmindicadorpf
+    ADD CONSTRAINT cor1440_gen_pmindicadorpf_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_proyecto cor1440_gen_proyecto_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_proyecto
+    ADD CONSTRAINT cor1440_gen_proyecto_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_proyectofinanciero cor1440_gen_proyectofinanciero_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_proyectofinanciero
+    ADD CONSTRAINT cor1440_gen_proyectofinanciero_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_proyectofinanciero_usuario cor1440_gen_proyectofinanciero_usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_proyectofinanciero_usuario
+    ADD CONSTRAINT cor1440_gen_proyectofinanciero_usuario_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_rangoedadac cor1440_gen_rangoedadac_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_rangoedadac
+    ADD CONSTRAINT cor1440_gen_rangoedadac_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_resultadopf cor1440_gen_resultadopf_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_resultadopf
+    ADD CONSTRAINT cor1440_gen_resultadopf_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_sectorapc cor1440_gen_sectorapc_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_sectorapc
+    ADD CONSTRAINT cor1440_gen_sectorapc_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_tipoindicador cor1440_gen_tipoindicador_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_tipoindicador
+    ADD CONSTRAINT cor1440_gen_tipoindicador_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cor1440_gen_tipomoneda cor1440_gen_tipomoneda_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_tipomoneda
+    ADD CONSTRAINT cor1440_gen_tipomoneda_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: cor1440_gen_valorcampoact cor1440_gen_valorcampoact_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5795,6 +6027,22 @@ ALTER TABLE ONLY public.heb412_gen_campohc
 
 
 --
+-- Name: heb412_gen_campoplantillahcm heb412_gen_campoplantillahcm_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.heb412_gen_campoplantillahcm
+    ADD CONSTRAINT heb412_gen_campoplantillahcm_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: heb412_gen_campoplantillahcr heb412_gen_campoplantillahcr_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.heb412_gen_campoplantillahcr
+    ADD CONSTRAINT heb412_gen_campoplantillahcr_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: heb412_gen_carpetaexclusiva heb412_gen_carpetaexclusiva_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5811,11 +6059,43 @@ ALTER TABLE ONLY public.heb412_gen_doc
 
 
 --
+-- Name: heb412_gen_formulario_plantillahcr heb412_gen_formulario_plantillahcr_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.heb412_gen_formulario_plantillahcr
+    ADD CONSTRAINT heb412_gen_formulario_plantillahcr_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: heb412_gen_plantilladoc heb412_gen_plantilladoc_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.heb412_gen_plantilladoc
     ADD CONSTRAINT heb412_gen_plantilladoc_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: heb412_gen_plantillahcm heb412_gen_plantillahcm_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.heb412_gen_plantillahcm
+    ADD CONSTRAINT heb412_gen_plantillahcm_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: heb412_gen_plantillahcr heb412_gen_plantillahcr_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.heb412_gen_plantillahcr
+    ADD CONSTRAINT heb412_gen_plantillahcr_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: mr519_gen_campo mr519_gen_campo_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mr519_gen_campo
+    ADD CONSTRAINT mr519_gen_campo_pkey PRIMARY KEY (id);
 
 
 --
@@ -5835,6 +6115,14 @@ ALTER TABLE ONLY public.mr519_gen_encuestausuario
 
 
 --
+-- Name: mr519_gen_formulario mr519_gen_formulario_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mr519_gen_formulario
+    ADD CONSTRAINT mr519_gen_formulario_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: mr519_gen_opcioncs mr519_gen_opcioncs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5851,11 +6139,67 @@ ALTER TABLE ONLY public.mr519_gen_planencuesta
 
 
 --
+-- Name: mr519_gen_respuestafor mr519_gen_respuestafor_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mr519_gen_respuestafor
+    ADD CONSTRAINT mr519_gen_respuestafor_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: mr519_gen_valorcampo mr519_gen_valorcampo_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mr519_gen_valorcampo
+    ADD CONSTRAINT mr519_gen_valorcampo_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: sivel2_gen_pconsolidado pconsolidado_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.sivel2_gen_pconsolidado
     ADD CONSTRAINT pconsolidado_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: sip_anexo sip_anexo_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sip_anexo
+    ADD CONSTRAINT sip_anexo_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sip_bitacora sip_bitacora_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sip_bitacora
+    ADD CONSTRAINT sip_bitacora_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sip_clase sip_clase_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sip_clase
+    ADD CONSTRAINT sip_clase_id_key UNIQUE (id);
+
+
+--
+-- Name: sip_clase sip_clase_id_municipio_id_clalocal_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sip_clase
+    ADD CONSTRAINT sip_clase_id_municipio_id_clalocal_key UNIQUE (id_municipio, id_clalocal);
 
 
 --
@@ -6629,6 +6973,13 @@ CREATE INDEX cor1440_gen_actividad_proyectofinanciero_actividad_id_idx ON public
 
 
 --
+-- Name: cor1440_gen_datointermedioti_pmindicadorpf_llaves_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX cor1440_gen_datointermedioti_pmindicadorpf_llaves_idx ON public.cor1440_gen_datointermedioti_pmindicadorpf USING btree (datointermedioti_id, pmindicadorpf_id);
+
+
+--
 -- Name: index_cor1440_gen_actividad_on_usuario_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7397,6 +7748,14 @@ ALTER TABLE ONLY public.sivel2_gen_caso_respuestafor
 
 
 --
+-- Name: sivel2_gen_caso_respuestafor caso_respuestafor_respuestafor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sivel2_gen_caso_respuestafor
+    ADD CONSTRAINT caso_respuestafor_respuestafor_id_fkey FOREIGN KEY (respuestafor_id) REFERENCES public.mr519_gen_respuestafor(id);
+
+
+--
 -- Name: sivel2_gen_categoria categoria_col_rep_consolidado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7434,6 +7793,22 @@ ALTER TABLE ONLY public.sivel2_gen_contextovictima_victima
 
 ALTER TABLE ONLY public.sivel2_gen_contextovictima_victima
     ADD CONSTRAINT contextovictima_victima_victima_id_fkey FOREIGN KEY (victima_id) REFERENCES public.sivel2_gen_victima(id);
+
+
+--
+-- Name: cor1440_gen_actividad_actividadtipo cor1440_gen_actividad_actividadtipo_actividad_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_actividadtipo
+    ADD CONSTRAINT cor1440_gen_actividad_actividadtipo_actividad_id_fkey FOREIGN KEY (actividad_id) REFERENCES public.cor1440_gen_actividad(id);
+
+
+--
+-- Name: cor1440_gen_actividad_actividadtipo cor1440_gen_actividad_actividadtipo_actividadtipo_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_actividadtipo
+    ADD CONSTRAINT cor1440_gen_actividad_actividadtipo_actividadtipo_id_fkey FOREIGN KEY (actividadtipo_id) REFERENCES public.cor1440_gen_actividadtipo(id);
 
 
 --
@@ -7501,11 +7876,83 @@ ALTER TABLE ONLY public.cor1440_gen_actividad_valorcampotind
 
 
 --
+-- Name: cor1440_gen_anexo_efecto fk_rails_037289a77c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_anexo_efecto
+    ADD CONSTRAINT fk_rails_037289a77c FOREIGN KEY (efecto_id) REFERENCES public.cor1440_gen_efecto(id);
+
+
+--
+-- Name: cor1440_gen_mindicadorpf fk_rails_06564b910d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_mindicadorpf
+    ADD CONSTRAINT fk_rails_06564b910d FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
+
+
+--
+-- Name: cor1440_gen_resultadopf fk_rails_06ba24bd54; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_resultadopf
+    ADD CONSTRAINT fk_rails_06ba24bd54 FOREIGN KEY (objetivopf_id) REFERENCES public.cor1440_gen_objetivopf(id);
+
+
+--
 -- Name: sip_municipio fk_rails_089870a38d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.sip_municipio
     ADD CONSTRAINT fk_rails_089870a38d FOREIGN KEY (id_departamento) REFERENCES public.sip_departamento(id);
+
+
+--
+-- Name: cor1440_gen_actividad_actividadpf fk_rails_08b9aa072b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_actividadpf
+    ADD CONSTRAINT fk_rails_08b9aa072b FOREIGN KEY (actividadpf_id) REFERENCES public.cor1440_gen_actividadpf(id);
+
+
+--
+-- Name: cor1440_gen_actividadpf fk_rails_0b10834ba7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadpf
+    ADD CONSTRAINT fk_rails_0b10834ba7 FOREIGN KEY (resultadopf_id) REFERENCES public.cor1440_gen_resultadopf(id);
+
+
+--
+-- Name: cor1440_gen_actividad_respuestafor fk_rails_0b4fb6fceb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_respuestafor
+    ADD CONSTRAINT fk_rails_0b4fb6fceb FOREIGN KEY (actividad_id) REFERENCES public.cor1440_gen_actividad(id);
+
+
+--
+-- Name: cor1440_gen_efecto_respuestafor fk_rails_0ba7ab4660; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_efecto_respuestafor
+    ADD CONSTRAINT fk_rails_0ba7ab4660 FOREIGN KEY (efecto_id) REFERENCES public.cor1440_gen_efecto(id);
+
+
+--
+-- Name: cor1440_gen_financiador_proyectofinanciero fk_rails_0cd09d688c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_financiador_proyectofinanciero
+    ADD CONSTRAINT fk_rails_0cd09d688c FOREIGN KEY (financiador_id) REFERENCES public.cor1440_gen_financiador(id);
+
+
+--
+-- Name: cor1440_gen_mindicadorpf fk_rails_0fbac6136b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_mindicadorpf
+    ADD CONSTRAINT fk_rails_0fbac6136b FOREIGN KEY (indicadorpf_id) REFERENCES public.cor1440_gen_indicadorpf(id);
 
 
 --
@@ -7549,6 +7996,22 @@ ALTER TABLE ONLY public.cor1440_gen_efecto_orgsocial
 
 
 --
+-- Name: cor1440_gen_actividad_rangoedadac fk_rails_1366d14fb8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_rangoedadac
+    ADD CONSTRAINT fk_rails_1366d14fb8 FOREIGN KEY (rangoedadac_id) REFERENCES public.cor1440_gen_rangoedadac(id);
+
+
+--
+-- Name: cor1440_gen_actividadpf fk_rails_16d8cc3b46; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadpf
+    ADD CONSTRAINT fk_rails_16d8cc3b46 FOREIGN KEY (heredade_id) REFERENCES public.cor1440_gen_actividadpf(id);
+
+
+--
 -- Name: mr519_gen_encuestausuario fk_rails_1b24d10e82; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7557,11 +8020,27 @@ ALTER TABLE ONLY public.mr519_gen_encuestausuario
 
 
 --
+-- Name: heb412_gen_formulario_plantillahcr fk_rails_1bdf79898c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.heb412_gen_formulario_plantillahcr
+    ADD CONSTRAINT fk_rails_1bdf79898c FOREIGN KEY (plantillahcr_id) REFERENCES public.heb412_gen_plantillahcr(id);
+
+
+--
 -- Name: cor1440_gen_efecto fk_rails_1d0050a070; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cor1440_gen_efecto
     ADD CONSTRAINT fk_rails_1d0050a070 FOREIGN KEY (registradopor_id) REFERENCES public.usuario(id);
+
+
+--
+-- Name: cor1440_gen_caracterizacionpf fk_rails_1d1caee38f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_caracterizacionpf
+    ADD CONSTRAINT fk_rails_1d1caee38f FOREIGN KEY (formulario_id) REFERENCES public.mr519_gen_formulario(id);
 
 
 --
@@ -7581,11 +8060,43 @@ ALTER TABLE ONLY public.cor1440_gen_caracterizacionpersona
 
 
 --
+-- Name: cor1440_gen_anexo_proyectofinanciero fk_rails_26e56f96f9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_anexo_proyectofinanciero
+    ADD CONSTRAINT fk_rails_26e56f96f9 FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
+
+
+--
+-- Name: cor1440_gen_campotind fk_rails_2770ce966d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_campotind
+    ADD CONSTRAINT fk_rails_2770ce966d FOREIGN KEY (tipoindicador_id) REFERENCES public.cor1440_gen_tipoindicador(id);
+
+
+--
+-- Name: cor1440_gen_informe fk_rails_294895347e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_informe
+    ADD CONSTRAINT fk_rails_294895347e FOREIGN KEY (filtroproyecto) REFERENCES public.cor1440_gen_proyecto(id);
+
+
+--
 -- Name: cor1440_gen_informe fk_rails_2bd685d2b3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cor1440_gen_informe
     ADD CONSTRAINT fk_rails_2bd685d2b3 FOREIGN KEY (filtroresponsable) REFERENCES public.usuario(id);
+
+
+--
+-- Name: mr519_gen_encuestausuario fk_rails_2cb09d778a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mr519_gen_encuestausuario
+    ADD CONSTRAINT fk_rails_2cb09d778a FOREIGN KEY (respuestafor_id) REFERENCES public.mr519_gen_respuestafor(id);
 
 
 --
@@ -7613,6 +8124,14 @@ ALTER TABLE ONLY public.sip_ubicacionpre
 
 
 --
+-- Name: cor1440_gen_actividad_rangoedadac fk_rails_2f8fe7fdca; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_rangoedadac
+    ADD CONSTRAINT fk_rails_2f8fe7fdca FOREIGN KEY (actividad_id) REFERENCES public.cor1440_gen_actividad(id);
+
+
+--
 -- Name: sivel2_gen_otraorga_victima fk_rails_3029d2736a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7629,11 +8148,59 @@ ALTER TABLE ONLY public.cor1440_gen_valorcampoact
 
 
 --
+-- Name: cor1440_gen_proyectofinanciero fk_rails_3792591d9e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_proyectofinanciero
+    ADD CONSTRAINT fk_rails_3792591d9e FOREIGN KEY (sectorapc_id) REFERENCES public.cor1440_gen_sectorapc(id);
+
+
+--
+-- Name: cor1440_gen_datointermedioti_pmindicadorpf fk_rails_390cd96f7c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_datointermedioti_pmindicadorpf
+    ADD CONSTRAINT fk_rails_390cd96f7c FOREIGN KEY (pmindicadorpf_id) REFERENCES public.cor1440_gen_pmindicadorpf(id);
+
+
+--
+-- Name: cor1440_gen_actividad_proyecto fk_rails_395faa0882; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_proyecto
+    ADD CONSTRAINT fk_rails_395faa0882 FOREIGN KEY (actividad_id) REFERENCES public.cor1440_gen_actividad(id);
+
+
+--
+-- Name: sip_ubicacionpre fk_rails_3b59c12090; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sip_ubicacionpre
+    ADD CONSTRAINT fk_rails_3b59c12090 FOREIGN KEY (clase_id) REFERENCES public.sip_clase(id);
+
+
+--
+-- Name: cor1440_gen_informe fk_rails_40cb623d50; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_informe
+    ADD CONSTRAINT fk_rails_40cb623d50 FOREIGN KEY (filtroproyectofinanciero) REFERENCES public.cor1440_gen_proyectofinanciero(id);
+
+
+--
 -- Name: cor1440_gen_actividad fk_rails_4426fc905e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cor1440_gen_actividad
     ADD CONSTRAINT fk_rails_4426fc905e FOREIGN KEY (usuario_id) REFERENCES public.usuario(id);
+
+
+--
+-- Name: cor1440_gen_informeauditoria fk_rails_44cf03d3e2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_informeauditoria
+    ADD CONSTRAINT fk_rails_44cf03d3e2 FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
 
 
 --
@@ -7645,6 +8212,14 @@ ALTER TABLE ONLY public.sip_orgsocial_persona
 
 
 --
+-- Name: cor1440_gen_indicadorpf fk_rails_4a0bd96143; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_indicadorpf
+    ADD CONSTRAINT fk_rails_4a0bd96143 FOREIGN KEY (objetivopf_id) REFERENCES public.cor1440_gen_objetivopf(id);
+
+
+--
 -- Name: sip_ubicacion fk_rails_4dd7a7f238; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7653,11 +8228,35 @@ ALTER TABLE ONLY public.sip_ubicacion
 
 
 --
+-- Name: cor1440_gen_efecto fk_rails_4ebe8f74fc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_efecto
+    ADD CONSTRAINT fk_rails_4ebe8f74fc FOREIGN KEY (indicadorpf_id) REFERENCES public.cor1440_gen_indicadorpf(id);
+
+
+--
 -- Name: cor1440_gen_valorcampotind fk_rails_4f2fc96457; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cor1440_gen_valorcampotind
     ADD CONSTRAINT fk_rails_4f2fc96457 FOREIGN KEY (campotind_id) REFERENCES public.cor1440_gen_campotind(id);
+
+
+--
+-- Name: cor1440_gen_caracterizacionpf fk_rails_4fcf0ffb4f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_caracterizacionpf
+    ADD CONSTRAINT fk_rails_4fcf0ffb4f FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
+
+
+--
+-- Name: cor1440_gen_actividad_proyectofinanciero fk_rails_524486e06b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_proyectofinanciero
+    ADD CONSTRAINT fk_rails_524486e06b FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
 
 
 --
@@ -7677,6 +8276,22 @@ ALTER TABLE ONLY public.sip_etiqueta_municipio
 
 
 --
+-- Name: cor1440_gen_objetivopf fk_rails_57b4fd8780; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_objetivopf
+    ADD CONSTRAINT fk_rails_57b4fd8780 FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
+
+
+--
+-- Name: cor1440_gen_formulario_mindicadorpf fk_rails_590a6d182f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_formulario_mindicadorpf
+    ADD CONSTRAINT fk_rails_590a6d182f FOREIGN KEY (mindicadorpf_id) REFERENCES public.cor1440_gen_mindicadorpf(id);
+
+
+--
 -- Name: sivel2_gen_caso_presponsable fk_rails_5a8abbdd31; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7693,6 +8308,22 @@ ALTER TABLE ONLY public.sip_orgsocial
 
 
 --
+-- Name: cor1440_gen_informenarrativo fk_rails_629d2a2cb8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_informenarrativo
+    ADD CONSTRAINT fk_rails_629d2a2cb8 FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
+
+
+--
+-- Name: cor1440_gen_plantillahcm_proyectofinanciero fk_rails_62c9243a43; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_plantillahcm_proyectofinanciero
+    ADD CONSTRAINT fk_rails_62c9243a43 FOREIGN KEY (plantillahcm_id) REFERENCES public.heb412_gen_plantillahcm(id);
+
+
+--
 -- Name: sivel2_gen_combatiente fk_rails_6485d06d37; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7701,11 +8332,75 @@ ALTER TABLE ONLY public.sivel2_gen_combatiente
 
 
 --
+-- Name: mr519_gen_opcioncs fk_rails_656b4a3ca7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mr519_gen_opcioncs
+    ADD CONSTRAINT fk_rails_656b4a3ca7 FOREIGN KEY (campo_id) REFERENCES public.mr519_gen_campo(id);
+
+
+--
+-- Name: cor1440_gen_datointermedioti fk_rails_669ada0c54; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_datointermedioti
+    ADD CONSTRAINT fk_rails_669ada0c54 FOREIGN KEY (mindicadorpf_id) REFERENCES public.cor1440_gen_mindicadorpf(id);
+
+
+--
+-- Name: heb412_gen_formulario_plantillahcr fk_rails_696d27d6f5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.heb412_gen_formulario_plantillahcr
+    ADD CONSTRAINT fk_rails_696d27d6f5 FOREIGN KEY (formulario_id) REFERENCES public.mr519_gen_formulario(id);
+
+
+--
+-- Name: cor1440_gen_caracterizacionpersona fk_rails_6a82dffb63; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_caracterizacionpersona
+    ADD CONSTRAINT fk_rails_6a82dffb63 FOREIGN KEY (respuestafor_id) REFERENCES public.mr519_gen_respuestafor(id);
+
+
+--
+-- Name: heb412_gen_formulario_plantillahcm fk_rails_6e214a7168; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.heb412_gen_formulario_plantillahcm
+    ADD CONSTRAINT fk_rails_6e214a7168 FOREIGN KEY (formulario_id) REFERENCES public.mr519_gen_formulario(id);
+
+
+--
+-- Name: cor1440_gen_actividadpf_mindicadorpf fk_rails_6e9cbecf02; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadpf_mindicadorpf
+    ADD CONSTRAINT fk_rails_6e9cbecf02 FOREIGN KEY (mindicadorpf_id) REFERENCES public.cor1440_gen_mindicadorpf(id);
+
+
+--
 -- Name: sip_ubicacion fk_rails_6ed05ed576; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.sip_ubicacion
     ADD CONSTRAINT fk_rails_6ed05ed576 FOREIGN KEY (id_pais) REFERENCES public.sip_pais(id);
+
+
+--
+-- Name: cor1440_gen_pmindicadorpf fk_rails_701d924c54; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_pmindicadorpf
+    ADD CONSTRAINT fk_rails_701d924c54 FOREIGN KEY (mindicadorpf_id) REFERENCES public.cor1440_gen_mindicadorpf(id);
+
+
+--
+-- Name: cor1440_gen_efecto_orgsocial fk_rails_72ba94182e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_efecto_orgsocial
+    ADD CONSTRAINT fk_rails_72ba94182e FOREIGN KEY (efecto_id) REFERENCES public.cor1440_gen_efecto(id);
 
 
 --
@@ -7733,11 +8428,35 @@ ALTER TABLE ONLY public.sip_orgsocial_persona
 
 
 --
+-- Name: mr519_gen_respuestafor fk_rails_805efe6935; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mr519_gen_respuestafor
+    ADD CONSTRAINT fk_rails_805efe6935 FOREIGN KEY (formulario_id) REFERENCES public.mr519_gen_formulario(id);
+
+
+--
+-- Name: mr519_gen_valorcampo fk_rails_819cf17399; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mr519_gen_valorcampo
+    ADD CONSTRAINT fk_rails_819cf17399 FOREIGN KEY (campo_id) REFERENCES public.mr519_gen_campo(id);
+
+
+--
 -- Name: cor1440_gen_tipomoneda fk_rails_82fd06de79; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cor1440_gen_tipomoneda
     ADD CONSTRAINT fk_rails_82fd06de79 FOREIGN KEY (pais_id) REFERENCES public.sip_pais(id);
+
+
+--
+-- Name: mr519_gen_encuestapersona fk_rails_83755e20b9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mr519_gen_encuestapersona
+    ADD CONSTRAINT fk_rails_83755e20b9 FOREIGN KEY (respuestafor_id) REFERENCES public.mr519_gen_respuestafor(id);
 
 
 --
@@ -7749,11 +8468,43 @@ ALTER TABLE ONLY public.sivel2_gen_caso
 
 
 --
+-- Name: mr519_gen_encuestapersona fk_rails_88eeb03074; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mr519_gen_encuestapersona
+    ADD CONSTRAINT fk_rails_88eeb03074 FOREIGN KEY (formulario_id) REFERENCES public.mr519_gen_formulario(id);
+
+
+--
+-- Name: cor1440_gen_formulario_tipoindicador fk_rails_8978582d8a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_formulario_tipoindicador
+    ADD CONSTRAINT fk_rails_8978582d8a FOREIGN KEY (tipoindicador_id) REFERENCES public.cor1440_gen_tipoindicador(id);
+
+
+--
 -- Name: cor1440_gen_actividad_orgsocial fk_rails_8ba599a224; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cor1440_gen_actividad_orgsocial
     ADD CONSTRAINT fk_rails_8ba599a224 FOREIGN KEY (orgsocial_id) REFERENCES public.sip_orgsocial(id);
+
+
+--
+-- Name: mr519_gen_valorcampo fk_rails_8bb7650018; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mr519_gen_valorcampo
+    ADD CONSTRAINT fk_rails_8bb7650018 FOREIGN KEY (respuestafor_id) REFERENCES public.mr519_gen_respuestafor(id);
+
+
+--
+-- Name: cor1440_gen_informefinanciero fk_rails_8bd007af77; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_informefinanciero
+    ADD CONSTRAINT fk_rails_8bd007af77 FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
 
 
 --
@@ -7773,6 +8524,22 @@ ALTER TABLE ONLY public.sip_departamento
 
 
 --
+-- Name: cor1440_gen_resultadopf fk_rails_95485cfc7a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_resultadopf
+    ADD CONSTRAINT fk_rails_95485cfc7a FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
+
+
+--
+-- Name: cor1440_gen_efecto_respuestafor fk_rails_95a3aff09f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_efecto_respuestafor
+    ADD CONSTRAINT fk_rails_95a3aff09f FOREIGN KEY (respuestafor_id) REFERENCES public.mr519_gen_respuestafor(id);
+
+
+--
 -- Name: sivel2_gen_combatiente fk_rails_95f4a0b8f6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7789,11 +8556,59 @@ ALTER TABLE ONLY public.sip_orgsocial_sectororgsocial
 
 
 --
+-- Name: mr519_gen_campo fk_rails_a186e1a8a0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mr519_gen_campo
+    ADD CONSTRAINT fk_rails_a186e1a8a0 FOREIGN KEY (formulario_id) REFERENCES public.mr519_gen_formulario(id);
+
+
+--
+-- Name: sip_ubicacion fk_rails_a1d509c79a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sip_ubicacion
+    ADD CONSTRAINT fk_rails_a1d509c79a FOREIGN KEY (id_clase) REFERENCES public.sip_clase(id);
+
+
+--
+-- Name: cor1440_gen_actividad_proyectofinanciero fk_rails_a8489e0d62; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_proyectofinanciero
+    ADD CONSTRAINT fk_rails_a8489e0d62 FOREIGN KEY (actividad_id) REFERENCES public.cor1440_gen_actividad(id);
+
+
+--
+-- Name: cor1440_gen_actividad_respuestafor fk_rails_abc0cafc05; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_respuestafor
+    ADD CONSTRAINT fk_rails_abc0cafc05 FOREIGN KEY (respuestafor_id) REFERENCES public.mr519_gen_respuestafor(id);
+
+
+--
+-- Name: cor1440_gen_beneficiariopf fk_rails_ac70e973ee; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_beneficiariopf
+    ADD CONSTRAINT fk_rails_ac70e973ee FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
+
+
+--
 -- Name: sivel2_gen_combatiente fk_rails_af43e915a6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.sivel2_gen_combatiente
     ADD CONSTRAINT fk_rails_af43e915a6 FOREIGN KEY (id_filiacion) REFERENCES public.sivel2_gen_filiacion(id);
+
+
+--
+-- Name: cor1440_gen_indicadorpf fk_rails_b5b70fb7f7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_indicadorpf
+    ADD CONSTRAINT fk_rails_b5b70fb7f7 FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
 
 
 --
@@ -7805,11 +8620,35 @@ ALTER TABLE ONLY public.sip_ubicacion
 
 
 --
+-- Name: cor1440_gen_actividad_actividadpf fk_rails_baad271930; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_actividadpf
+    ADD CONSTRAINT fk_rails_baad271930 FOREIGN KEY (actividad_id) REFERENCES public.cor1440_gen_actividad(id);
+
+
+--
+-- Name: cor1440_gen_anexo_efecto fk_rails_bcd8d7b7ad; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_anexo_efecto
+    ADD CONSTRAINT fk_rails_bcd8d7b7ad FOREIGN KEY (anexo_id) REFERENCES public.sip_anexo(id);
+
+
+--
 -- Name: sivel2_gen_combatiente fk_rails_bfb49597e1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.sivel2_gen_combatiente
     ADD CONSTRAINT fk_rails_bfb49597e1 FOREIGN KEY (organizacionarmada) REFERENCES public.sivel2_gen_presponsable(id);
+
+
+--
+-- Name: cor1440_gen_informe fk_rails_c02831dd89; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_informe
+    ADD CONSTRAINT fk_rails_c02831dd89 FOREIGN KEY (filtroactividadarea) REFERENCES public.cor1440_gen_actividadarea(id);
 
 
 --
@@ -7821,6 +8660,30 @@ ALTER TABLE ONLY public.sip_ubicacionpre
 
 
 --
+-- Name: cor1440_gen_datointermedioti_pmindicadorpf fk_rails_c5ec912cc3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_datointermedioti_pmindicadorpf
+    ADD CONSTRAINT fk_rails_c5ec912cc3 FOREIGN KEY (datointermedioti_id) REFERENCES public.cor1440_gen_datointermedioti(id);
+
+
+--
+-- Name: cor1440_gen_actividadpf fk_rails_c68e2278b2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadpf
+    ADD CONSTRAINT fk_rails_c68e2278b2 FOREIGN KEY (actividadtipo_id) REFERENCES public.cor1440_gen_actividadtipo(id);
+
+
+--
+-- Name: cor1440_gen_proyectofinanciero_usuario fk_rails_c6f8d7af05; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_proyectofinanciero_usuario
+    ADD CONSTRAINT fk_rails_c6f8d7af05 FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
+
+
+--
 -- Name: sip_ubicacionpre fk_rails_c8024a90df; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7829,11 +8692,83 @@ ALTER TABLE ONLY public.sip_ubicacionpre
 
 
 --
+-- Name: cor1440_gen_desembolso fk_rails_c858edd00a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_desembolso
+    ADD CONSTRAINT fk_rails_c858edd00a FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
+
+
+--
+-- Name: cor1440_gen_financiador_proyectofinanciero fk_rails_ca93eb04dc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_financiador_proyectofinanciero
+    ADD CONSTRAINT fk_rails_ca93eb04dc FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
+
+
+--
 -- Name: usuario fk_rails_cc636858ad; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.usuario
     ADD CONSTRAINT fk_rails_cc636858ad FOREIGN KEY (tema_id) REFERENCES public.sip_tema(id);
+
+
+--
+-- Name: cor1440_gen_campoact fk_rails_ceb6f1a7f0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_campoact
+    ADD CONSTRAINT fk_rails_ceb6f1a7f0 FOREIGN KEY (actividadtipo_id) REFERENCES public.cor1440_gen_actividadtipo(id);
+
+
+--
+-- Name: cor1440_gen_actividad_proyecto fk_rails_cf5d592625; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_proyecto
+    ADD CONSTRAINT fk_rails_cf5d592625 FOREIGN KEY (proyecto_id) REFERENCES public.cor1440_gen_proyecto(id);
+
+
+--
+-- Name: cor1440_gen_indicadorpf fk_rails_cf888d1b56; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_indicadorpf
+    ADD CONSTRAINT fk_rails_cf888d1b56 FOREIGN KEY (tipoindicador_id) REFERENCES public.cor1440_gen_tipoindicador(id);
+
+
+--
+-- Name: cor1440_gen_actividadpf_mindicadorpf fk_rails_cfff77ad98; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadpf_mindicadorpf
+    ADD CONSTRAINT fk_rails_cfff77ad98 FOREIGN KEY (actividadpf_id) REFERENCES public.cor1440_gen_actividadpf(id);
+
+
+--
+-- Name: cor1440_gen_proyectofinanciero fk_rails_d0ff83bfc6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_proyectofinanciero
+    ADD CONSTRAINT fk_rails_d0ff83bfc6 FOREIGN KEY (tipomoneda_id) REFERENCES public.cor1440_gen_tipomoneda(id);
+
+
+--
+-- Name: cor1440_gen_indicadorpf fk_rails_d264d408b0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_indicadorpf
+    ADD CONSTRAINT fk_rails_d264d408b0 FOREIGN KEY (resultadopf_id) REFERENCES public.cor1440_gen_resultadopf(id);
+
+
+--
+-- Name: cor1440_gen_plantillahcm_proyectofinanciero fk_rails_d56d245f70; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_plantillahcm_proyectofinanciero
+    ADD CONSTRAINT fk_rails_d56d245f70 FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
 
 
 --
@@ -7869,6 +8804,22 @@ ALTER TABLE ONLY public.sivel2_gen_sectorsocialsec_victima
 
 
 --
+-- Name: cor1440_gen_formulario_mindicadorpf fk_rails_e07a0a8650; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_formulario_mindicadorpf
+    ADD CONSTRAINT fk_rails_e07a0a8650 FOREIGN KEY (formulario_id) REFERENCES public.mr519_gen_formulario(id);
+
+
+--
+-- Name: heb412_gen_campoplantillahcm fk_rails_e0e38e0782; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.heb412_gen_campoplantillahcm
+    ADD CONSTRAINT fk_rails_e0e38e0782 FOREIGN KEY (plantillahcm_id) REFERENCES public.heb412_gen_plantillahcm(id);
+
+
+--
 -- Name: sivel2_gen_combatiente fk_rails_e2d01a5a99; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7877,11 +8828,35 @@ ALTER TABLE ONLY public.sivel2_gen_combatiente
 
 
 --
+-- Name: cor1440_gen_valorcampoact fk_rails_e36cf046d1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_valorcampoact
+    ADD CONSTRAINT fk_rails_e36cf046d1 FOREIGN KEY (actividad_id) REFERENCES public.cor1440_gen_actividad(id);
+
+
+--
+-- Name: cor1440_gen_actividadpf fk_rails_e69a8b5822; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadpf
+    ADD CONSTRAINT fk_rails_e69a8b5822 FOREIGN KEY (formulario_id) REFERENCES public.mr519_gen_formulario(id);
+
+
+--
 -- Name: cor1440_gen_beneficiariopf fk_rails_e6ba73556e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cor1440_gen_beneficiariopf
     ADD CONSTRAINT fk_rails_e6ba73556e FOREIGN KEY (persona_id) REFERENCES public.sip_persona(id);
+
+
+--
+-- Name: cor1440_gen_actividad_valorcampotind fk_rails_e8cd697f5d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_valorcampotind
+    ADD CONSTRAINT fk_rails_e8cd697f5d FOREIGN KEY (actividad_id) REFERENCES public.cor1440_gen_actividad(id);
 
 
 --
@@ -7901,6 +8876,14 @@ ALTER TABLE ONLY public.sip_ubicacionpre
 
 
 --
+-- Name: cor1440_gen_actividad_orgsocial fk_rails_ecdad5c731; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividad_orgsocial
+    ADD CONSTRAINT fk_rails_ecdad5c731 FOREIGN KEY (actividad_id) REFERENCES public.cor1440_gen_actividad(id);
+
+
+--
 -- Name: sip_orgsocial_sectororgsocial fk_rails_f032bb21a6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7917,11 +8900,43 @@ ALTER TABLE ONLY public.sivel2_gen_combatiente
 
 
 --
+-- Name: cor1440_gen_actividadtipo_formulario fk_rails_f17af6bf9c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadtipo_formulario
+    ADD CONSTRAINT fk_rails_f17af6bf9c FOREIGN KEY (actividadtipo_id) REFERENCES public.cor1440_gen_actividadtipo(id);
+
+
+--
+-- Name: cor1440_gen_datointermedioti fk_rails_f2e0ba2f26; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_datointermedioti
+    ADD CONSTRAINT fk_rails_f2e0ba2f26 FOREIGN KEY (tipoindicador_id) REFERENCES public.cor1440_gen_tipoindicador(id);
+
+
+--
 -- Name: sivel2_gen_combatiente fk_rails_f77dda7a40; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.sivel2_gen_combatiente
     ADD CONSTRAINT fk_rails_f77dda7a40 FOREIGN KEY (id_organizacion) REFERENCES public.sivel2_gen_organizacion(id);
+
+
+--
+-- Name: cor1440_gen_actividadpf fk_rails_f941b0c512; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadpf
+    ADD CONSTRAINT fk_rails_f941b0c512 FOREIGN KEY (proyectofinanciero_id) REFERENCES public.cor1440_gen_proyectofinanciero(id);
+
+
+--
+-- Name: cor1440_gen_actividadtipo_formulario fk_rails_faf663ab7f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_actividadtipo_formulario
+    ADD CONSTRAINT fk_rails_faf663ab7f FOREIGN KEY (formulario_id) REFERENCES public.mr519_gen_formulario(id);
 
 
 --
@@ -7938,6 +8953,30 @@ ALTER TABLE ONLY public.sivel2_gen_combatiente
 
 ALTER TABLE ONLY public.sip_clase
     ADD CONSTRAINT fk_rails_fb09f016e4 FOREIGN KEY (id_municipio) REFERENCES public.sip_municipio(id);
+
+
+--
+-- Name: heb412_gen_formulario_plantillahcm fk_rails_fc3149fc44; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.heb412_gen_formulario_plantillahcm
+    ADD CONSTRAINT fk_rails_fc3149fc44 FOREIGN KEY (plantillahcm_id) REFERENCES public.heb412_gen_plantillahcm(id);
+
+
+--
+-- Name: cor1440_gen_formulario_tipoindicador fk_rails_fd2fbcd1b8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_formulario_tipoindicador
+    ADD CONSTRAINT fk_rails_fd2fbcd1b8 FOREIGN KEY (formulario_id) REFERENCES public.mr519_gen_formulario(id);
+
+
+--
+-- Name: cor1440_gen_anexo_proyectofinanciero fk_rails_fd94296801; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cor1440_gen_anexo_proyectofinanciero
+    ADD CONSTRAINT fk_rails_fd94296801 FOREIGN KEY (anexo_id) REFERENCES public.sip_anexo(id);
 
 
 --
@@ -8109,6 +9148,14 @@ ALTER TABLE ONLY public.sip_municipio
 
 
 --
+-- Name: sip_persona sip_persona_id_clase_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sip_persona
+    ADD CONSTRAINT sip_persona_id_clase_fkey FOREIGN KEY (id_clase) REFERENCES public.sip_clase(id);
+
+
+--
 -- Name: sip_persona sip_persona_id_departamento_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8122,6 +9169,14 @@ ALTER TABLE ONLY public.sip_persona
 
 ALTER TABLE ONLY public.sip_persona
     ADD CONSTRAINT sip_persona_id_municipio_fkey FOREIGN KEY (id_municipio) REFERENCES public.sip_municipio(id);
+
+
+--
+-- Name: sip_ubicacion sip_ubicacion_id_clase_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sip_ubicacion
+    ADD CONSTRAINT sip_ubicacion_id_clase_fkey FOREIGN KEY (id_clase) REFERENCES public.sip_clase(id);
 
 
 --
@@ -8364,707 +9419,356 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20131128151014'),
-('20131128151014'),
-('20131204135932'),
 ('20131204135932'),
 ('20131204140000'),
-('20131204140000'),
-('20131204143718'),
 ('20131204143718'),
 ('20131204183530'),
-('20131204183530'),
-('20131206081531'),
 ('20131206081531'),
 ('20131210221541'),
-('20131210221541'),
-('20131220103409'),
 ('20131220103409'),
 ('20131223175141'),
-('20131223175141'),
-('20140117212555'),
 ('20140117212555'),
 ('20140129151136'),
-('20140129151136'),
-('20140207102709'),
 ('20140207102709'),
 ('20140207102739'),
-('20140207102739'),
-('20140211162355'),
 ('20140211162355'),
 ('20140211164659'),
-('20140211164659'),
-('20140211172443'),
 ('20140211172443'),
 ('20140313012209'),
-('20140313012209'),
-('20140514142421'),
 ('20140514142421'),
 ('20140518120059'),
-('20140518120059'),
-('20140527110223'),
 ('20140527110223'),
 ('20140528043115'),
-('20140528043115'),
-('20140804202100'),
 ('20140804202100'),
 ('20140804202101'),
-('20140804202101'),
-('20140804202958'),
 ('20140804202958'),
 ('20140815111351'),
-('20140815111351'),
-('20140827142659'),
 ('20140827142659'),
 ('20140901105741'),
-('20140901105741'),
-('20140901106000'),
 ('20140901106000'),
 ('20140909165233'),
-('20140909165233'),
-('20140918115412'),
 ('20140918115412'),
 ('20140922102737'),
-('20140922102737'),
-('20140922110956'),
 ('20140922110956'),
 ('20141002140242'),
-('20141002140242'),
-('20141111102451'),
 ('20141111102451'),
 ('20141111203313'),
-('20141111203313'),
-('20150313153722'),
 ('20150313153722'),
 ('20150317084737'),
-('20150317084737'),
-('20150413000000'),
 ('20150413000000'),
 ('20150413160156'),
-('20150413160156'),
-('20150413160157'),
 ('20150413160157'),
 ('20150413160158'),
-('20150413160158'),
-('20150413160159'),
 ('20150413160159'),
 ('20150416074423'),
-('20150416074423'),
-('20150416090140'),
 ('20150416090140'),
 ('20150416095646'),
-('20150416095646'),
-('20150416101228'),
 ('20150416101228'),
 ('20150417071153'),
-('20150417071153'),
-('20150417180314'),
 ('20150417180314'),
 ('20150419000000'),
-('20150419000000'),
-('20150420104520'),
 ('20150420104520'),
 ('20150420110000'),
-('20150420110000'),
-('20150420125522'),
 ('20150420125522'),
 ('20150420153835'),
-('20150420153835'),
-('20150420200255'),
 ('20150420200255'),
 ('20150503120915'),
-('20150503120915'),
-('20150505084914'),
 ('20150505084914'),
 ('20150510125926'),
-('20150510125926'),
-('20150513112126'),
 ('20150513112126'),
 ('20150513130058'),
-('20150513130058'),
-('20150513130510'),
 ('20150513130510'),
 ('20150513160835'),
-('20150513160835'),
-('20150520115257'),
 ('20150520115257'),
 ('20150521092657'),
-('20150521092657'),
-('20150521181918'),
 ('20150521181918'),
 ('20150521191227'),
-('20150521191227'),
-('20150528100944'),
 ('20150528100944'),
 ('20150602094513'),
-('20150602094513'),
-('20150602095241'),
 ('20150602095241'),
 ('20150602104342'),
-('20150602104342'),
-('20150609094809'),
 ('20150609094809'),
 ('20150609094820'),
-('20150609094820'),
-('20150616095023'),
 ('20150616095023'),
 ('20150616100351'),
-('20150616100351'),
-('20150616100551'),
 ('20150616100551'),
 ('20150624200701'),
-('20150624200701'),
-('20150707164448'),
 ('20150707164448'),
 ('20150709203137'),
-('20150709203137'),
-('20150710012947'),
 ('20150710012947'),
 ('20150710114451'),
-('20150710114451'),
-('20150716085420'),
 ('20150716085420'),
 ('20150716171420'),
-('20150716171420'),
-('20150716192356'),
 ('20150716192356'),
 ('20150717101243'),
-('20150717101243'),
-('20150720115701'),
 ('20150720115701'),
 ('20150720120236'),
-('20150720120236'),
-('20150724003736'),
 ('20150724003736'),
 ('20150803082520'),
-('20150803082520'),
-('20150809032138'),
 ('20150809032138'),
 ('20150826000000'),
-('20150826000000'),
-('20151020203421'),
 ('20151020203421'),
 ('20151124110943'),
-('20151124110943'),
-('20151127102425'),
 ('20151127102425'),
 ('20151130101417'),
-('20151130101417'),
-('20160308213334'),
 ('20160308213334'),
 ('20160316093659'),
-('20160316093659'),
-('20160316094627'),
 ('20160316094627'),
 ('20160316100620'),
-('20160316100620'),
-('20160316100621'),
 ('20160316100621'),
 ('20160316100622'),
-('20160316100622'),
-('20160316100623'),
 ('20160316100623'),
 ('20160316100624'),
-('20160316100624'),
-('20160316100625'),
 ('20160316100625'),
 ('20160316100626'),
-('20160316100626'),
-('20160519195544'),
 ('20160519195544'),
 ('20160719195853'),
-('20160719195853'),
-('20160719214520'),
 ('20160719214520'),
 ('20160724160049'),
-('20160724160049'),
-('20160724164110'),
 ('20160724164110'),
 ('20160725123242'),
-('20160725123242'),
-('20160725131347'),
 ('20160725131347'),
 ('20160805103310'),
-('20160805103310'),
-('20161009111443'),
 ('20161009111443'),
 ('20161010152631'),
-('20161010152631'),
-('20161026110802'),
 ('20161026110802'),
 ('20161027233011'),
-('20161027233011'),
-('20161103080156'),
 ('20161103080156'),
 ('20161103081041'),
-('20161103081041'),
-('20161103083352'),
 ('20161103083352'),
 ('20161108102349'),
-('20161108102349'),
-('20170405104322'),
 ('20170405104322'),
 ('20170406213334'),
-('20170406213334'),
-('20170413185012'),
 ('20170413185012'),
 ('20170414035328'),
-('20170414035328'),
-('20170503145808'),
 ('20170503145808'),
 ('20170526084502'),
-('20170526084502'),
-('20170526100040'),
 ('20170526100040'),
 ('20170526124219'),
-('20170526124219'),
-('20170526131129'),
 ('20170526131129'),
 ('20170529020218'),
-('20170529020218'),
-('20170529154413'),
 ('20170529154413'),
 ('20170607125033'),
-('20170607125033'),
-('20170609131212'),
 ('20170609131212'),
 ('20170928100402'),
-('20170928100402'),
-('20171011212156'),
 ('20171011212156'),
 ('20171011213037'),
-('20171011213037'),
-('20171011213405'),
 ('20171011213405'),
 ('20171011213548'),
-('20171011213548'),
-('20171019133203'),
 ('20171019133203'),
 ('20171128234148'),
-('20171128234148'),
-('20171130125044'),
 ('20171130125044'),
 ('20171130133741'),
-('20171130133741'),
-('20171212001011'),
 ('20171212001011'),
 ('20171217135318'),
-('20171217135318'),
-('20180126035129'),
 ('20180126035129'),
 ('20180126055129'),
-('20180126055129'),
-('20180212223621'),
 ('20180212223621'),
 ('20180219032546'),
-('20180219032546'),
-('20180220103644'),
 ('20180220103644'),
 ('20180220104234'),
-('20180220104234'),
-('20180223091622'),
 ('20180223091622'),
 ('20180225152848'),
-('20180225152848'),
-('20180320230847'),
 ('20180320230847'),
 ('20180427194732'),
-('20180427194732'),
-('20180509111948'),
 ('20180509111948'),
 ('20180519102415'),
-('20180519102415'),
-('20180611222635'),
 ('20180611222635'),
 ('20180612024009'),
-('20180612024009'),
-('20180612030340'),
 ('20180612030340'),
 ('20180626123640'),
-('20180626123640'),
-('20180627031905'),
 ('20180627031905'),
 ('20180717134314'),
-('20180717134314'),
-('20180717135811'),
 ('20180717135811'),
 ('20180718094829'),
-('20180718094829'),
-('20180719015902'),
 ('20180719015902'),
 ('20180720140443'),
-('20180720140443'),
-('20180720171842'),
 ('20180720171842'),
 ('20180724135332'),
-('20180724135332'),
-('20180724202353'),
 ('20180724202353'),
 ('20180726213123'),
-('20180726213123'),
-('20180726234755'),
 ('20180726234755'),
 ('20180801105304'),
-('20180801105304'),
-('20180810220807'),
 ('20180810220807'),
 ('20180810221619'),
-('20180810221619'),
-('20180812220011'),
 ('20180812220011'),
 ('20180813110808'),
-('20180813110808'),
-('20180905031342'),
 ('20180905031342'),
 ('20180905031617'),
-('20180905031617'),
-('20180910132139'),
 ('20180910132139'),
 ('20180912114413'),
-('20180912114413'),
-('20180914153010'),
 ('20180914153010'),
 ('20180914170936'),
-('20180914170936'),
-('20180917072914'),
 ('20180917072914'),
 ('20180918195008'),
-('20180918195008'),
-('20180918195821'),
 ('20180918195821'),
 ('20180920031351'),
-('20180920031351'),
-('20180921120954'),
 ('20180921120954'),
 ('20181011104537'),
-('20181011104537'),
-('20181012110629'),
 ('20181012110629'),
 ('20181017094456'),
-('20181017094456'),
-('20181018003945'),
 ('20181018003945'),
 ('20181113025055'),
-('20181113025055'),
-('20181130112320'),
 ('20181130112320'),
 ('20181213103204'),
-('20181213103204'),
-('20181218165548'),
 ('20181218165548'),
 ('20181218165559'),
-('20181218165559'),
-('20181218215222'),
 ('20181218215222'),
 ('20181219085236'),
-('20181219085236'),
-('20181224112813'),
 ('20181224112813'),
 ('20181227093834'),
-('20181227093834'),
-('20181227094559'),
 ('20181227094559'),
 ('20181227095037'),
-('20181227095037'),
-('20181227100523'),
 ('20181227100523'),
 ('20181227114431'),
-('20181227114431'),
-('20181227210510'),
 ('20181227210510'),
 ('20181228014507'),
-('20181228014507'),
-('20190109125417'),
 ('20190109125417'),
 ('20190110191802'),
-('20190110191802'),
-('20190111092816'),
 ('20190111092816'),
 ('20190111102201'),
-('20190111102201'),
-('20190128032125'),
 ('20190128032125'),
 ('20190205203619'),
-('20190205203619'),
-('20190206005635'),
 ('20190206005635'),
 ('20190208103518'),
-('20190208103518'),
-('20190308195346'),
 ('20190308195346'),
 ('20190322102311'),
-('20190322102311'),
-('20190326150948'),
 ('20190326150948'),
 ('20190331111015'),
-('20190331111015'),
-('20190401175521'),
 ('20190401175521'),
 ('20190403202049'),
-('20190403202049'),
-('20190406141156'),
 ('20190406141156'),
 ('20190406164301'),
-('20190406164301'),
-('20190418011743'),
 ('20190418011743'),
 ('20190418014012'),
-('20190418014012'),
-('20190418123920'),
 ('20190418123920'),
 ('20190418142712'),
-('20190418142712'),
-('20190426125052'),
 ('20190426125052'),
 ('20190426131119'),
-('20190426131119'),
-('20190430112229'),
 ('20190430112229'),
 ('20190603213842'),
-('20190603213842'),
-('20190603234145'),
 ('20190603234145'),
 ('20190605143420'),
-('20190605143420'),
-('20190612101211'),
 ('20190612101211'),
 ('20190612111043'),
-('20190612111043'),
-('20190612113734'),
 ('20190612113734'),
 ('20190612198000'),
-('20190612198000'),
-('20190612200000'),
 ('20190612200000'),
 ('20190613155738'),
-('20190613155738'),
-('20190613155843'),
 ('20190613155843'),
 ('20190618135559'),
-('20190618135559'),
-('20190625112649'),
 ('20190625112649'),
 ('20190625140232'),
-('20190625140232'),
-('20190703044126'),
 ('20190703044126'),
 ('20190715083916'),
-('20190715083916'),
-('20190715182611'),
 ('20190715182611'),
 ('20190726203302'),
-('20190726203302'),
-('20190804223012'),
 ('20190804223012'),
 ('20190818013251'),
-('20190818013251'),
-('20190924013712'),
 ('20190924013712'),
 ('20190924112646'),
-('20190924112646'),
-('20190926104116'),
 ('20190926104116'),
 ('20190926104551'),
-('20190926104551'),
-('20190926133640'),
 ('20190926133640'),
 ('20190926143845'),
-('20190926143845'),
-('20191012042159'),
 ('20191012042159'),
 ('20191016100031'),
-('20191016100031'),
-('20191021021621'),
 ('20191021021621'),
 ('20191205200007'),
-('20191205200007'),
-('20191205202150'),
 ('20191205202150'),
 ('20191205204511'),
-('20191205204511'),
-('20191219011910'),
 ('20191219011910'),
 ('20191231102721'),
-('20191231102721'),
-('20200106174710'),
 ('20200106174710'),
 ('20200116003807'),
-('20200116003807'),
-('20200211112230'),
 ('20200211112230'),
 ('20200212103617'),
-('20200212103617'),
-('20200221181049'),
 ('20200221181049'),
 ('20200224134339'),
-('20200224134339'),
-('20200228235200'),
 ('20200228235200'),
 ('20200229005951'),
-('20200229005951'),
-('20200302194744'),
 ('20200302194744'),
 ('20200314033958'),
-('20200314033958'),
-('20200319183515'),
 ('20200319183515'),
 ('20200320152017'),
-('20200320152017'),
-('20200324164130'),
 ('20200324164130'),
 ('20200326212919'),
-('20200326212919'),
-('20200327004702'),
 ('20200327004702'),
 ('20200330174434'),
-('20200330174434'),
-('20200411094012'),
 ('20200411094012'),
 ('20200411095105'),
-('20200411095105'),
-('20200415021859'),
 ('20200415021859'),
 ('20200415102103'),
-('20200415102103'),
-('20200422103916'),
 ('20200422103916'),
 ('20200423092828'),
-('20200423092828'),
-('20200427091939'),
 ('20200427091939'),
 ('20200428155536'),
-('20200428155536'),
-('20200430101709'),
 ('20200430101709'),
 ('20200622193241'),
-('20200622193241'),
-('20200706113547'),
 ('20200706113547'),
 ('20200720005020'),
-('20200720005020'),
-('20200720013144'),
 ('20200720013144'),
 ('20200722210144'),
-('20200722210144'),
-('20200723133542'),
 ('20200723133542'),
 ('20200727021707'),
-('20200727021707'),
-('20200802112451'),
 ('20200802112451'),
 ('20200810164753'),
-('20200810164753'),
-('20200907165157'),
 ('20200907165157'),
 ('20200907174303'),
-('20200907174303'),
-('20200916022934'),
 ('20200916022934'),
 ('20200919003430'),
-('20200919003430'),
-('20200921123831'),
 ('20200921123831'),
 ('20201009004421'),
-('20201009004421'),
-('20201119125643'),
 ('20201119125643'),
 ('20201121162913'),
-('20201121162913'),
-('20201130020715'),
 ('20201130020715'),
 ('20201201015501'),
-('20201201015501'),
-('20201205041350'),
 ('20201205041350'),
 ('20201205213317'),
-('20201205213317'),
-('20201214215209'),
 ('20201214215209'),
 ('20201231194433'),
-('20201231194433'),
-('20210108202122'),
 ('20210108202122'),
 ('20210116090353'),
-('20210116090353'),
-('20210116104426'),
 ('20210116104426'),
 ('20210117234541'),
-('20210117234541'),
-('20210201101144'),
 ('20210201101144'),
 ('20210201112227'),
-('20210201112227'),
-('20210202144410'),
 ('20210202144410'),
 ('20210202201520'),
-('20210202201520'),
-('20210202201530'),
 ('20210202201530'),
 ('20210206191033'),
-('20210206191033'),
-('20210226155035'),
 ('20210226155035'),
 ('20210308183041'),
-('20210308183041'),
-('20210308211112'),
 ('20210308211112'),
 ('20210308214507'),
-('20210308214507'),
-('20210401194637'),
 ('20210401194637'),
 ('20210401210102'),
-('20210401210102'),
-('20210414201956'),
 ('20210414201956'),
 ('20210417152053'),
-('20210417152053'),
-('20210419161145'),
 ('20210419161145'),
 ('20210428143811'),
-('20210428143811'),
-('20210430160739'),
 ('20210430160739'),
 ('20210514201449'),
-('20210514201449'),
-('20210524121112'),
 ('20210524121112'),
 ('20210531223906'),
-('20210531223906'),
-('20210601023450'),
 ('20210601023450'),
 ('20210601023557'),
-('20210601023557'),
-('20210608180736'),
 ('20210608180736'),
 ('20210609024118'),
-('20210609024118'),
-('20210614120835'),
 ('20210614120835'),
 ('20210614212220'),
-('20210614212220'),
-('20210616003251'),
 ('20210616003251'),
 ('20210619191706'),
-('20210619191706'),
-('20210727111355'),
 ('20210727111355'),
 ('20210728214424'),
-('20210728214424'),
-('20210730120340'),
 ('20210730120340'),
 ('20210823162357'),
-('20210823162357'),
-('20210924022913'),
 ('20210924022913'),
 ('20211011214752'),
-('20211011214752'),
 ('20211011233005'),
-('20211011233005'),
-('20211019121200'),
 ('20211019121200'),
 ('20211020221141'),
 ('20211024105450'),
-('20211024105450'),
-('20211024105507'),
 ('20211024105507'),
 ('20211117200456'),
 ('20211119085218'),
