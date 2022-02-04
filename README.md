@@ -1,6 +1,7 @@
 # si_asom
 
-[![Revisado por Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com) [![Estado Construcción](https://gitlab.com/pasosdeJesus/si_asom/badges/main/pipeline.svg)](https://gitlab.com/pasosdeJesus/si_asom/-/pipelines)[![Clima del Código](https://codeclimate.com/github/pasosdeJesus/si_asom/badges/gpa.svg)](https://codeclimate.com/github/pasosdeJesus/si_asom) [![Cobertura de Pruebas](https://codeclimate.com/github/pasosdeJesus/si_asom/badges/coverage.svg)](https://codeclimate.com/github/pasosdeJesus/si_asom) [![security](https://hakiri.io/github/pasosdeJesus/si_asom/master.svg)](https://hakiri.io/github/pasosdeJesus/si_asom/master)
+
+[![Revisado por Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com) Pruebas y seguridad:[![Estado Construcción](https://gitlab.com/pasosdeJesus/si_asom/badges/main/pipeline.svg)](https://gitlab.com/pasosdeJesus/si_asom/-/pipelines?page=1&scope=all&ref=main) [![Clima del Código](https://codeclimate.com/github/pasosdeJesus/si_asom/badges/gpa.svg)](https://codeclimate.com/github/pasosdeJesus/si_asom) [![Cobertura de Pruebas](https://codeclimate.com/github/pasosdeJesus/si_asom/badges/coverage.svg)](https://codeclimate.com/github/pasosdeJesus/si_asom)
 
 
 Sistema de Información de ASOM
