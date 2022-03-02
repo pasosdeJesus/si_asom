@@ -475,45 +475,6 @@ CREATE SEQUENCE public.caso_presponsable_seq
 
 
 --
--- Name: sip_persona_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.sip_persona_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: sip_persona; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.sip_persona (
-    id integer DEFAULT nextval('public.sip_persona_id_seq'::regclass) NOT NULL,
-    nombres character varying(100) NOT NULL COLLATE public.es_co_utf_8,
-    apellidos character varying(100) NOT NULL COLLATE public.es_co_utf_8,
-    anionac integer,
-    mesnac integer,
-    dianac integer,
-    sexo character(1) DEFAULT 'S'::bpchar NOT NULL,
-    numerodocumento character varying(100),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    id_pais integer,
-    nacionalde integer,
-    tdocumento_id integer,
-    id_departamento integer,
-    id_municipio integer,
-    id_clase integer,
-    CONSTRAINT persona_check CHECK (((dianac IS NULL) OR (((dianac >= 1) AND (((mesnac = 1) OR (mesnac = 3) OR (mesnac = 5) OR (mesnac = 7) OR (mesnac = 8) OR (mesnac = 10) OR (mesnac = 12)) AND (dianac <= 31))) OR (((mesnac = 4) OR (mesnac = 6) OR (mesnac = 9) OR (mesnac = 11)) AND (dianac <= 30)) OR ((mesnac = 2) AND (dianac <= 29))))),
-    CONSTRAINT persona_mesnac_check CHECK (((mesnac IS NULL) OR ((mesnac >= 1) AND (mesnac <= 12)))),
-    CONSTRAINT persona_sexo_check CHECK (((sexo = 'S'::bpchar) OR (sexo = 'F'::bpchar) OR (sexo = 'M'::bpchar)))
-);
-
-
---
 -- Name: sivel2_gen_caso_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -583,7 +544,7 @@ CREATE TABLE public.sivel2_gen_victima (
     updated_at timestamp without time zone,
     id integer DEFAULT nextval('public.victima_seq'::regclass) NOT NULL,
     CONSTRAINT victima_hijos_check CHECK (((hijos IS NULL) OR ((hijos >= 0) AND (hijos <= 100)))),
-    CONSTRAINT victima_orientacionsexual_check CHECK (((orientacionsexual = 'B'::bpchar) OR (orientacionsexual = 'G'::bpchar) OR (orientacionsexual = 'H'::bpchar) OR (orientacionsexual = 'I'::bpchar) OR (orientacionsexual = 'L'::bpchar) OR (orientacionsexual = 'O'::bpchar) OR (orientacionsexual = 'S'::bpchar) OR (orientacionsexual = 'T'::bpchar)))
+    CONSTRAINT victima_orientacionsexual_check CHECK (((orientacionsexual = 'L'::bpchar) OR (orientacionsexual = 'G'::bpchar) OR (orientacionsexual = 'B'::bpchar) OR (orientacionsexual = 'T'::bpchar) OR (orientacionsexual = 'O'::bpchar) OR (orientacionsexual = 'H'::bpchar) OR (orientacionsexual = 'S'::bpchar)))
 );
 
 
@@ -596,15 +557,14 @@ CREATE VIEW public.cben1 AS
     subv.id_victima,
     subv.id_persona,
     1 AS npersona,
-    persona.anionac
+    victima.id_etnia
    FROM public.sivel2_gen_caso caso,
     public.sivel2_gen_victima victima,
     ( SELECT sivel2_gen_victima.id_persona,
             max(sivel2_gen_victima.id) AS id_victima
            FROM public.sivel2_gen_victima
-          GROUP BY sivel2_gen_victima.id_persona) subv,
-    public.sip_persona persona
-  WHERE ((subv.id_victima = victima.id) AND (caso.id = victima.id_caso) AND ((persona.anionac IS NULL) OR (persona.anionac = ANY (ARRAY[1938, 1940, 1941, 1942, 1944, 1945, 1946, 1948, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2007, 2016]))) AND (victima.id_etnia = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111])) AND (victima.id_filiacion = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])) AND ((((date_part('year'::text, caso.fecha))::text || '-'::text) || lpad((date_part('month'::text, caso.fecha))::text, 2, '0'::text)) = ANY (ARRAY['2018-06'::text, '2019-05'::text, '2020-01'::text, '2020-02'::text, '2020-09'::text, '2020-12'::text, '2021-02'::text, '2021-03'::text, '2021-04'::text, '2021-05'::text, '2021-06'::text, '2021-07'::text, '2021-08'::text, '2021-10'::text])) AND (victima.id_organizacion = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 101])) AND (victima.id_profesion = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 101, 102])) AND (victima.id_rangoedad = ANY (ARRAY[1, 2, 3, 4, 5, 6])) AND (victima.id_sectorsocial = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])) AND (persona.sexo = ANY (ARRAY['F'::bpchar, 'M'::bpchar, 'S'::bpchar])) AND (victima.id_vinculoestado = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40])) AND (persona.id = victima.id_persona));
+          GROUP BY sivel2_gen_victima.id_persona) subv
+  WHERE ((subv.id_victima = victima.id) AND (caso.id = victima.id_caso));
 
 
 --
@@ -746,7 +706,7 @@ CREATE VIEW public.cben2 AS
     cben1.id_victima,
     cben1.id_persona,
     cben1.npersona,
-    cben1.anionac,
+    cben1.id_etnia,
     ubicacion.id_departamento,
     departamento.nombre AS departamento_nombre,
     ubicacion.id_municipio,
@@ -759,7 +719,7 @@ CREATE VIEW public.cben2 AS
      LEFT JOIN public.sip_departamento departamento ON ((ubicacion.id_departamento = departamento.id)))
      LEFT JOIN public.sip_municipio municipio ON ((ubicacion.id_municipio = municipio.id)))
      LEFT JOIN public.sip_clase clase ON ((ubicacion.id_clase = clase.id)))
-  GROUP BY cben1.id_caso, cben1.id_victima, cben1.id_persona, cben1.npersona, cben1.anionac, ubicacion.id_departamento, departamento.nombre, ubicacion.id_municipio, municipio.nombre, ubicacion.id_clase, clase.nombre;
+  GROUP BY cben1.id_caso, cben1.id_victima, cben1.id_persona, cben1.npersona, cben1.id_etnia, ubicacion.id_departamento, departamento.nombre, ubicacion.id_municipio, municipio.nombre, ubicacion.id_clase, clase.nombre;
 
 
 --
@@ -2295,6 +2255,45 @@ ALTER SEQUENCE public.cor1440_gen_valorcampotind_id_seq OWNED BY public.cor1440_
 
 
 --
+-- Name: sip_persona_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sip_persona_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sip_persona; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sip_persona (
+    id integer DEFAULT nextval('public.sip_persona_id_seq'::regclass) NOT NULL,
+    nombres character varying(100) NOT NULL COLLATE public.es_co_utf_8,
+    apellidos character varying(100) NOT NULL COLLATE public.es_co_utf_8,
+    anionac integer,
+    mesnac integer,
+    dianac integer,
+    sexo character(1) DEFAULT 'S'::bpchar NOT NULL,
+    numerodocumento character varying(100),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    id_pais integer,
+    nacionalde integer,
+    tdocumento_id integer,
+    id_departamento integer,
+    id_municipio integer,
+    id_clase integer,
+    CONSTRAINT persona_check CHECK (((dianac IS NULL) OR (((dianac >= 1) AND (((mesnac = 1) OR (mesnac = 3) OR (mesnac = 5) OR (mesnac = 7) OR (mesnac = 8) OR (mesnac = 10) OR (mesnac = 12)) AND (dianac <= 31))) OR (((mesnac = 4) OR (mesnac = 6) OR (mesnac = 9) OR (mesnac = 11)) AND (dianac <= 30)) OR ((mesnac = 2) AND (dianac <= 29))))),
+    CONSTRAINT persona_mesnac_check CHECK (((mesnac IS NULL) OR ((mesnac >= 1) AND (mesnac <= 12)))),
+    CONSTRAINT persona_sexo_check CHECK (((sexo = 'S'::bpchar) OR (sexo = 'F'::bpchar) OR (sexo = 'M'::bpchar)))
+);
+
+
+--
 -- Name: sivel2_gen_acto; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2327,6 +2326,34 @@ CREATE TABLE public.sivel2_gen_categoria (
     supracategoria_id integer,
     CONSTRAINT "$3" CHECK (((fechadeshabilitacion IS NULL) OR (fechadeshabilitacion >= fechacreacion))),
     CONSTRAINT categoria_tipocat_check CHECK (((tipocat = 'I'::bpchar) OR (tipocat = 'C'::bpchar) OR (tipocat = 'O'::bpchar)))
+);
+
+
+--
+-- Name: sivel2_gen_sectorsocial_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sivel2_gen_sectorsocial_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sivel2_gen_sectorsocial; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sivel2_gen_sectorsocial (
+    id integer DEFAULT nextval('public.sivel2_gen_sectorsocial_id_seq'::regclass) NOT NULL,
+    nombre character varying(500) COLLATE public.es_co_utf_8,
+    fechacreacion date DEFAULT '2001-01-01'::date NOT NULL,
+    fechadeshabilitacion date,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    observaciones character varying(5000),
+    CONSTRAINT sector_social_check CHECK (((fechadeshabilitacion IS NULL) OR (fechadeshabilitacion >= fechacreacion)))
 );
 
 
@@ -2369,13 +2396,23 @@ CREATE VIEW public.cvt1 AS
     acto.id_persona,
     acto.id_categoria,
     supracategoria.id_tviolencia,
-    categoria.nombre AS categoria
-   FROM (((((public.sivel2_gen_acto acto
+    categoria.nombre AS categoria,
+    ubicacion.id_departamento,
+    departamento.nombre AS departamento_nombre,
+    ubicacion.id_municipio,
+    municipio.nombre AS municipio_nombre,
+    sectorsocial.id,
+    sectorsocial.nombre AS sectorsocial_nombre
+   FROM (((((((((public.sivel2_gen_acto acto
      JOIN public.sivel2_gen_caso caso ON ((acto.id_caso = caso.id)))
      JOIN public.sivel2_gen_categoria categoria ON ((acto.id_categoria = categoria.id)))
      JOIN public.sivel2_gen_supracategoria supracategoria ON ((categoria.supracategoria_id = supracategoria.id)))
      JOIN public.sivel2_gen_victima victima ON (((victima.id_persona = acto.id_persona) AND (victima.id_caso = caso.id))))
-     JOIN public.sip_persona persona ON ((persona.id = acto.id_persona)));
+     JOIN public.sip_persona persona ON ((persona.id = acto.id_persona)))
+     LEFT JOIN public.sip_ubicacion ubicacion ON ((caso.ubicacion_id = ubicacion.id)))
+     LEFT JOIN public.sip_departamento departamento ON ((ubicacion.id_departamento = departamento.id)))
+     LEFT JOIN public.sip_municipio municipio ON ((ubicacion.id_municipio = municipio.id)))
+     LEFT JOIN public.sivel2_gen_sectorsocial sectorsocial ON ((victima.id_sectorsocial = sectorsocial.id)));
 
 
 --
@@ -4984,34 +5021,6 @@ CREATE SEQUENCE public.sivel2_gen_resagresion_id_seq
 --
 
 ALTER SEQUENCE public.sivel2_gen_resagresion_id_seq OWNED BY public.sivel2_gen_resagresion.id;
-
-
---
--- Name: sivel2_gen_sectorsocial_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.sivel2_gen_sectorsocial_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: sivel2_gen_sectorsocial; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.sivel2_gen_sectorsocial (
-    id integer DEFAULT nextval('public.sivel2_gen_sectorsocial_id_seq'::regclass) NOT NULL,
-    nombre character varying(500) COLLATE public.es_co_utf_8,
-    fechacreacion date DEFAULT '2001-01-01'::date NOT NULL,
-    fechadeshabilitacion date,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    observaciones character varying(5000),
-    CONSTRAINT sector_social_check CHECK (((fechadeshabilitacion IS NULL) OR (fechadeshabilitacion >= fechacreacion)))
-);
 
 
 --
