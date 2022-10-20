@@ -4472,13 +4472,11 @@ CREATE TABLE public.sivel2_gen_caso_presponsable (
     tipo integer DEFAULT 0 NOT NULL,
     bloque character varying(50),
     frente character varying(50),
-    brigada character varying(50),
-    batallon character varying(50),
-    division character varying(50),
     id integer DEFAULT nextval('public.caso_presponsable_seq'::regclass) NOT NULL,
     otro character varying(500),
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    subdivision character varying
 );
 
 
@@ -10390,6 +10388,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220722000850'),
 ('20220722192214'),
 ('20220805181901'),
-('20220822132754');
+('20220822132754'),
+('20221005165307');
 
 
