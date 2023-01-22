@@ -228,7 +228,6 @@ GEM
       activesupport (>= 5.0.0)
     jsbundling-rails (1.1.1)
       railties (>= 6.0.0)
-    json (2.6.3)
     kgio (2.11.4)
     libxml-ruby (4.0.0)
     loofah (2.19.1)
@@ -350,11 +349,12 @@ GEM
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
-    simplecov (0.17.1)
+    simplecov (0.22.0)
       docile (~> 1.1)
-      json (>= 1.8, < 3)
-      simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.2)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -445,7 +445,7 @@ DEPENDENCIES
   sassc-rails
   selenium-webdriver
   simple_form
-  simplecov (< 0.18)
+  simplecov
   sivel2_gen!
   sprockets-rails
   stimulus-rails
