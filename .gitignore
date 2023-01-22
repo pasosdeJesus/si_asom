@@ -19,7 +19,7 @@ config/database.yml
 *core
 
 public/assets/*
-config/initializers/sip.rb
+config/initializers/msip.rb
 config/application.rb
 config/routes.rb
 archivos/
@@ -27,7 +27,7 @@ public/heb412/
 public/sivel2/
 config/initializers/punto_montaje.rb
 .byebug_history
-app/views/sip/hogar/
+app/views/msip/hogar/
 bin/u.sh
 coverage/
 bin/corre.sh
@@ -48,7 +48,7 @@ config/credentials.yml.enc
 *swp
 public/asom/
 app/assets/builds
-app/javascript/controllers/sip
+app/javascript/controllers/msip
 app/javascript/controllers/mr519_gen
 app/javascript/controllers/heb412_gen
 app/javascript/controllers/cor1440_gen

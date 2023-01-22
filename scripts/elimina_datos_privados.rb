@@ -3,7 +3,7 @@
 
 ActiveRecord::Base.connection.execute <<-SQL
   DELETE FROM sivel2_gen_caso_etiqueta;
-  DELETE FROM sip_etiqueta WHERE nombre NOT IN ('AMARILLO',
+  DELETE FROM msip_etiqueta WHERE nombre NOT IN ('AMARILLO',
     'AZUL', 'MES_INEXACTO', 'ROJO', 'VERDE');
   DELETE FROM sivel2_gen_caso_usuario ;
   DELETE FROM mr519_gen_encuestapersona;
@@ -11,16 +11,16 @@ ActiveRecord::Base.connection.execute <<-SQL
   DELETE FROM sivel2_gen_caso_fuenteprensa;
   DELETE FROM sivel2_gen_caso_fotra;
   DELETE FROM sivel2_gen_anexo_caso;
-  DELETE FROM sip_anexo;
+  DELETE FROM msip_anexo;
   DELETE FROM sivel2_gen_fotra;
-  DELETE FROM sip_bitacora;
-  DELETE FROM sip_grupo WHERE id NOT IN (20, 21, 25);
+  DELETE FROM msip_bitacora;
+  DELETE FROM msip_grupo WHERE id NOT IN (20, 21, 25);
   UPDATE usuario SET nusuario='adminexp' WHERE id=1;
   INSERT INTO usuario (id, nusuario, fechacreacion)
     SELECT 1, 'adminexp', '2020-05-28'
       WHERE NOT EXISTS (SELECT 1 FROM usuario WHERE id=1);
 
-  DELETE FROM sip_grupo_usuario WHERE usuario_id<>1;
+  DELETE FROM msip_grupo_usuario WHERE usuario_id<>1;
   DELETE FROM usuario WHERE id<>1;
-  DELETE FROM sip_oficina ;
+  DELETE FROM msip_oficina ;
 SQL

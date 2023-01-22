@@ -1,5 +1,5 @@
 <% content_for :titulo do %>
-  <%= Sip.titulo %>
+  <%= Msip.titulo %>
 <% end %>
 
 <% content_for :menu do %>
@@ -48,10 +48,10 @@
           cor1440_gen.contar_actividades_beneficiarios_path, desplegable: true %>
         <%= opcion_menu 'Medición de indicadores', 
           cor1440_gen.mindicadorespf_path, desplegable: true %>
-        <%= opcion_menu 'Organizaciones Sociales', sip.orgsociales_path,
+        <%= opcion_menu 'Organizaciones Sociales', msip.orgsociales_path,
           desplegable: true %>
         <%= opcion_menu 'Participantes', 
-          sip.personas_path, desplegable: true %>
+          msip.personas_path, desplegable: true %>
       <% end %>
     <% end %>
   <% end %>
@@ -102,7 +102,7 @@
         <% if can? :manage, ::Usuario %>
           <%= opcion_menu 'Usuarios', main_app.usuarios_path,
             desplegable: true %>
-          <%= opcion_menu 'Respaldo cifrado', sip.respaldo7z_path,
+          <%= opcion_menu 'Respaldo cifrado', msip.respaldo7z_path,
             desplegable: true %>
           <%= opcion_menu 'Tablas Básicas', sivel2_gen.tablasbasicas_path,
             desplegable: true %>
@@ -128,4 +128,4 @@
   </span></p>
 <% end %>
 
-<%= render template: 'layouts/sip/application' %>
+<%= render template: 'layouts/msip/application' %>

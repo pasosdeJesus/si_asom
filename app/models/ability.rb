@@ -23,7 +23,7 @@ class Ability  < Cor1440Gen::Ability
   ]
   
   def tablasbasicas 
-    Sip::Ability::BASICAS_PROPIAS + 
+    Msip::Ability::BASICAS_PROPIAS + 
       Heb412Gen::Ability::BASICAS_PROPIAS + 
       Cor1440Gen::Ability::BASICAS_PROPIAS +
       Sivel2Gen::Ability::BASICAS_PROPIAS + 
@@ -33,7 +33,7 @@ class Ability  < Cor1440Gen::Ability
   BASICAS_ID_NOAUTO = []
 
   def basicas_id_noauto 
-    Sip::Ability::BASICAS_ID_NOAUTO +
+    Msip::Ability::BASICAS_ID_NOAUTO +
       Heb412Gen::Ability::BASICAS_ID_NOAUTO +
       Cor1440Gen::Ability::BASICAS_ID_NOAUTO +
       Sivel2Gen::Ability::BASICAS_ID_NOAUTO +
@@ -44,7 +44,7 @@ class Ability  < Cor1440Gen::Ability
   ]
 
   def nobasicas_indice_seq_con_id 
-    Sip::Ability::NOBASICAS_INDSEQID +
+    Msip::Ability::NOBASICAS_INDSEQID +
       Heb412Gen::Ability::NOBASICAS_INDSEQID +
       Cor1440Gen::Ability::NOBASICAS_INDSEQID +
       Sivel2Gen::Ability::NOBASICAS_INDSEQID +
@@ -54,7 +54,7 @@ class Ability  < Cor1440Gen::Ability
   BASICAS_PRIO = []
 
   def tablasbasicas_prio 
-    Sip::Ability::BASICAS_PRIO +
+    Msip::Ability::BASICAS_PRIO +
       Heb412Gen::Ability::BASICAS_PRIO +
       Sivel2Gen::Ability::BASICAS_PRIO +
       Cor1440Gen::Ability::BASICAS_PRIO +
@@ -79,7 +79,7 @@ class Ability  < Cor1440Gen::Ability
   def initialize(usuario = nil)
 
     #Proveniente de sivel2_gen
-    can :read, [Sip::Pais, Sip::Departamento, Sip::Municipio, Sip::Clase]
+    can :read, [Msip::Pais, Msip::Departamento, Msip::Municipio, Msip::Clase]
 
     # La consulta web es publica dependiendo de
     if !usuario && Rails.application.config.x.sivel2_consulta_web_publica
@@ -110,8 +110,8 @@ class Ability  < Cor1440Gen::Ability
 
       can :manage, Cor1440Gen::Mindicadorpf
 
-      if usuario.sip_grupo &&
-          usuario.sip_grupo.pluck(:id).include?(GRUPO_ANALISTA_CASOS)
+      if usuario.msip_grupo &&
+          usuario.msip_grupo.pluck(:id).include?(GRUPO_ANALISTA_CASOS)
 
         # Proveniente de sivel2_gen
         # Hacer conteos
@@ -122,12 +122,12 @@ class Ability  < Cor1440Gen::Ability
         can :lista, Sivel2Gen::Caso
 
         can [:read, :update], Mr519Gen::Encuestausuario
-        can :read, Sip::Orgsocial
+        can :read, Msip::Orgsocial
 
-        can :descarga_anexo, Sip::Anexo
+        can :descarga_anexo, Msip::Anexo
 
-        can :contar, Sip::Ubicacion
-        can :nuevo, Sip::Ubicacion
+        can :contar, Msip::Ubicacion
+        can :nuevo, Msip::Ubicacion
 
         can :nuevo, Sivel2Gen::Combatiente
 
@@ -140,12 +140,12 @@ class Ability  < Cor1440Gen::Ability
         can :read, Heb412Gen::Plantillahcm
         can :read, Heb412Gen::Plantillahcr
 
-        can :manage, Sip::Bitacora, usuario: { id: usuario.id }
+        can :manage, Msip::Bitacora, usuario: { id: usuario.id }
 
         can [:read, :new, :edit, :update, :create],
-          Sip::Orgsocial
-        can :read, Sip::Bitacora
-        can :manage, Sip::Persona
+          Msip::Orgsocial
+        can :read, Msip::Bitacora
+        can :manage, Msip::Persona
 
         can :manage, Sivel2Gen::Acto
         can :manage, Sivel2Gen::Actocolectivo
@@ -167,10 +167,10 @@ class Ability  < Cor1440Gen::Ability
       can :manage, Mr519Gen::Formulario
       can :manage, Mr519Gen::Encuestausuario 
 
-      can :manage, Sip::Orgsocial
-      can :manage, Sip::Bitacora
-      can :manage, Sip::Persona
-      can :manage, Sip::Respaldo7z
+      can :manage, Msip::Orgsocial
+      can :manage, Msip::Bitacora
+      can :manage, Msip::Persona
+      can :manage, Msip::Respaldo7z
 
       can :manage, Sivel2Gen::Acto
       can :manage, Sivel2Gen::Actocolectivo

@@ -21,8 +21,8 @@ module Sivel2Gen
     #def mapaosm
 
 
-    #  @fechadesde = Sip::FormatoFechaHelper.inicio_semestre(Date.today - 182)
-    #  @fechahasta = Sip::FormatoFechaHelper.fin_semestre(Date.today - 182)
+    #  @fechadesde = Msip::FormatoFechaHelper.inicio_semestre(Date.today - 182)
+    #  @fechahasta = Msip::FormatoFechaHelper.fin_semestre(Date.today - 182)
     #  render 'mapaosm', layout: 'application'
     #end
   end

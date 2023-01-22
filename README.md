@@ -15,14 +15,14 @@ Sistema de Información de ASOM
   Las siguientes instrucciones suponen que opera en este ambiente.
 
 Puede consultar como instalar estos componentes en: 
-<https://github.com/pasosdeJesus/sip/wiki/Requisitos>
+<https://github.com/pasosdeJesus/msip/wiki/Requisitos>
 
 
 ### Arquitectura
 
 Es una aplicación que emplea los siguientes motores:
-*  genérico para sistemas de información ```sip``` 
-  <https://github.com/pasosdeJesus/sip>
+*  genérico para sistemas de información ```msip``` 
+  <https://github.com/pasosdeJesus/msip>
 *  genérico para manejo de casos ```sivel2_gen``` 
   <https://github.com/pasosdeJesus/sivel2_gen>
 *  genérico para proyectos con marco lógico y actividades ```cor1440_gen``` 
