@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/cor1440_gen.git
-  revision: a385ae03f35d100f62ede61a33fe8f90b0a9a05b
+  revision: c593a1ce95461913c4550b92a4cc5d381a5391d3
   branch: main
   specs:
     cor1440_gen (2.1a1)
@@ -31,7 +31,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/heb412_gen.git
-  revision: 89edfcfe54f974592d274df88ac5b0b48f6a63bb
+  revision: 8e76cdf6e82a77f3bb9834085d3d35cea06529f4
   branch: main
   specs:
     heb412_gen (2.2.0.alfa1)
@@ -42,7 +42,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/mr519_gen.git
-  revision: c80276ac1a0710728fb1e02864c41d658b3e33c8
+  revision: 771fca4e79efb2796da694c7e5df0e17466a212e
   branch: main
   specs:
     mr519_gen (2.2.0.beta1)
@@ -51,10 +51,10 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/msip.git
-  revision: 109236488920093186cc243135159b5fb22ee291
+  revision: 1580edcff46d6f8b6176a9cb3e2f49da54d0e780
   branch: main
   specs:
-    msip (2.2.0.alfa3)
+    msip (2.2.0.beta1)
       cancancan (~> 3)
       devise (~> 4)
       devise-i18n (~> 1)
@@ -71,7 +71,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/sivel2_gen.git
-  revision: 78d2fdddd6a07870be4d19811d17e7379e1366af
+  revision: d594d6aa7783264ac351bbd3a75b4858f0072091
   branch: main
   specs:
     sivel2_gen (2.2.0.beta1)
@@ -324,9 +324,9 @@ GEM
     regexp_parser (2.6.2)
     reline (0.3.2)
       io-console (~> 0.5)
-    responders (3.0.1)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
+    responders (3.1.0)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     rexml (3.2.5)
     rspreadsheet (0.5.3)
       andand (>= 1.3)
