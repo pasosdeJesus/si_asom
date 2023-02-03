@@ -77,116 +77,14 @@ class Ability  < Cor1440Gen::Ability
   # Analista de Casos para ver y editar casos --aunque inicialmente no tiene 
   # usuarios.
   def initialize(usuario = nil)
+    Sivel2Gen::Ability.initialize_sivel2_gen(self, usuario)
+    Cor1440Gen::Ability.initialize_cor1440_gen(self, usuario)
 
-    #Proveniente de sivel2_gen
-    can :read, [Msip::Pais, Msip::Departamento, Msip::Municipio, Msip::Clase]
-
-    # La consulta web es publica dependiendo de
-    if !usuario && Rails.application.config.x.sivel2_consulta_web_publica
-      can :buscar, Sivel2Gen::Caso
-      can :lista, Sivel2Gen::Caso
-
-      # API público
-      # Mostrar un caso con casos/101
-      # Mostrar un caso en XML - HTML con casos/101.xml
-      # Mostrar un caso en XML para descarga casos/101.xrlat
-      can [:read,:show], Sivel2Gen::Caso
-
-      #Mostrar registros limitados
-      can :index4000, Sivel2Gen::Caso
-    end
-
-    initialize_cor1440_gen(usuario)
     if !usuario || !usuario.fechadeshabilitacion.nil?
       return
     end
     can :contar, Sivel2Gen::Caso
     cannot :pestanadesaparicion, Sivel2Gen::Caso
-
-    case usuario.rol
-    when Ability::ROLOPERADOR
-      can :index, Cor1440Gen::Proyectofinanciero
-      can :index, Cor1440Gen::Actividad
-
-      can :manage, Cor1440Gen::Mindicadorpf
-
-      if usuario.msip_grupo &&
-          usuario.msip_grupo.pluck(:id).include?(GRUPO_ANALISTA_CASOS)
-
-        # Proveniente de sivel2_gen
-        # Hacer conteos
-        can :cuenta, Sivel2Gen::Caso
-
-        can :buscar, Sivel2Gen::Caso
-        can :contar, Sivel2Gen::Caso
-        can :lista, Sivel2Gen::Caso
-
-        can [:read, :update], Mr519Gen::Encuestausuario
-        can :read, Msip::Orgsocial
-
-        can :descarga_anexo, Msip::Anexo
-
-        can :contar, Msip::Ubicacion
-        can :nuevo, Msip::Ubicacion
-
-        can :nuevo, Sivel2Gen::Combatiente
-
-        can :nuevo, Sivel2Gen::Presponsable
-        can :manage, Sivel2Gen::Victima
-        can :manage, Sivel2Gen::Victimacolectiva
-
-        can :read, Heb412Gen::Doc
-        can :read, Heb412Gen::Plantilladoc
-        can :read, Heb412Gen::Plantillahcm
-        can :read, Heb412Gen::Plantillahcr
-
-        can :manage, Msip::Bitacora, usuario: { id: usuario.id }
-
-        can [:read, :new, :edit, :update, :create],
-          Msip::Orgsocial
-        can :read, Msip::Bitacora
-        can :manage, Msip::Persona
-
-        can :manage, Sivel2Gen::Acto
-        can :manage, Sivel2Gen::Actocolectivo
-        can [:read, :new, :edit, :update, :create, :nuevo, :destroy], Sivel2Gen::Caso
-
-        cannot :solocambiaretiquetas, Sivel2Gen::Caso
-        can :refresca, Sivel2Gen::Caso
-      end
-
-
-    when Ability::ROLADMIN, Ability::ROLDIR
-
-      # Proveniente de sivel2_gen
-      can :manage, Heb412Gen::Doc
-      can :manage, Heb412Gen::Plantilladoc
-      can :manage, Heb412Gen::Plantillahcm
-      can :manage, Heb412Gen::Plantillahcr
-
-      can :manage, Mr519Gen::Formulario
-      can :manage, Mr519Gen::Encuestausuario 
-
-      can :manage, Msip::Orgsocial
-      can :manage, Msip::Bitacora
-      can :manage, Msip::Persona
-      can :manage, Msip::Respaldo7z
-
-      can :manage, Sivel2Gen::Acto
-      can :manage, Sivel2Gen::Actocolectivo
-      can :manage, Sivel2Gen::Caso
-      cannot :solocambiaretiquetas, Sivel2Gen::Caso
-      can :manage, Sivel2Gen::Combatiente
-      can :manage, Sivel2Gen::Victima
-      can :manage, Sivel2Gen::Victimacolectiva
-
-      can :manage, Usuario
-      can :manage, :tablasbasicas
-      tablasbasicas.each do |t|
-        c = Ability.tb_clase(t)
-        can :manage, c
-      end
-    end
 
   end
 end
