@@ -2546,13 +2546,19 @@ CREATE VIEW public.cvt1 AS
     acto.id_persona,
     acto.id_categoria,
     supracategoria.id_tviolencia,
-    categoria.nombre AS categoria
-   FROM (((((public.sivel2_gen_acto acto
+    categoria.nombre AS categoria,
+    ubicacion.id_departamento,
+    departamento.id_deplocal AS departamento_divipola,
+    initcap((departamento.nombre)::text) AS departamento_nombre
+   FROM (((((((public.sivel2_gen_acto acto
      JOIN public.sivel2_gen_caso caso ON ((acto.id_caso = caso.id)))
      JOIN public.sivel2_gen_categoria categoria ON ((acto.id_categoria = categoria.id)))
      JOIN public.sivel2_gen_supracategoria supracategoria ON ((categoria.supracategoria_id = supracategoria.id)))
      JOIN public.sivel2_gen_victima victima ON (((victima.id_persona = acto.id_persona) AND (victima.id_caso = caso.id))))
-     JOIN public.msip_persona persona ON ((persona.id = acto.id_persona)));
+     JOIN public.msip_persona persona ON ((persona.id = acto.id_persona)))
+     LEFT JOIN public.msip_ubicacion ubicacion ON ((caso.ubicacion_id = ubicacion.id)))
+     LEFT JOIN public.msip_departamento departamento ON ((ubicacion.id_departamento = departamento.id)))
+  WHERE (categoria.id = ANY (ARRAY[427, 297, 397, 197, 527, 777, 776, 426, 196, 526, 396, 296, 45, 73, 55, 15, 25, 35, 65, 92, 40, 50, 67, 801, 90, 57, 46, 37, 16, 26, 80, 85, 66, 64, 703, 38, 706, 59, 49, 18, 28, 401, 501, 904, 402, 17, 502, 331, 231, 705, 62, 104, 906, 713, 101, 76, 21, 302, 11, 102, 902, 903, 34, 27, 14, 24, 301, 20, 30, 10, 392, 192, 772, 422, 292, 522, 63, 93, 425, 775, 525, 295, 395, 195, 714, 78, 394, 294, 194, 424, 524, 774, 89, 905, 86, 701, 68, 341, 141, 241, 715, 704, 702, 33, 43, 53, 23, 13, 88, 98, 84, 709, 711, 707, 708, 710, 87, 97, 717, 917, 716, 916, 91, 95, 718, 393, 523, 423, 773, 193, 293, 58, 48, 75, 69, 41, 74, 22, 36, 12, 56, 72, 47, 191, 521, 391, 421, 291, 771, 29, 19, 520, 77, 39, 420, 712]));
 
 
 --
