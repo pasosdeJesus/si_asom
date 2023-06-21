@@ -71,7 +71,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/sivel2_gen.git
-  revision: b686eed93eed8089e83eed1c6b3444f80eb34bbd
+  revision: 0feb97aaac8fbc23d9c15bf7845075affc885b4a
   branch: main
   specs:
     sivel2_gen (2.2.0.beta4)
@@ -182,7 +182,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     color (1.8)
-    colorize (1.0.1)
+    colorize (1.0.3)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     cuprite (0.14.3)
