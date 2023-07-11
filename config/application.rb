@@ -31,7 +31,7 @@ module Sivel2
     puts "config.relative_url_root=#{config.relative_url_root}"
 
     # msip
-    config.x.formato_fecha = ENV.fetch('SIP_FORMATO_FECHA', 'dd/M/yyyy')
+    config.x.formato_fecha = ENV.fetch('MSIP_FORMATO_FECHA', 'dd/M/yyyy')
 
     # heb412
     config.x.heb412_ruta = Pathname(
