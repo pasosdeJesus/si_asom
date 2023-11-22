@@ -13,7 +13,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   }
 
   def setup
-    if Msip::Tclase.all.count == 0
+    if Msip::Tcentropoblado.all.count == 0
       load "#{Rails.root}/db/seeds.rb"
       Rake::Task['msip:indices'].invoke
     end
