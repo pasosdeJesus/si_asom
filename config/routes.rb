@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
 
   rutarel = ENV.fetch('RUTA_RELATIVA', 'msip/')
-  scope rutarel do 
+ 
 
     devise_scope :usuario do
       get 'sign_out' => 'devise/sessions#destroy'
@@ -36,12 +36,12 @@ Rails.application.routes.draw do
     get '/casos/mapaosm' => 'sivel2_gen/casos#mapaosm'
 
     root 'sivel2_gen/hogar#index'
-  end # scope
+ # scope
 
-  mount Msip::Engine, at: rutarel, as: 'msip'
-  mount Mr519Gen::Engine, at: rutarel, as: 'mr519_gen'
-  mount Heb412Gen::Engine, at: rutarel, as: 'heb412_gen'
-  mount Sivel2Gen::Engine, at: rutarel, as: 'sivel2_gen'
-  mount Cor1440Gen::Engine, at: rutarel, as: 'cor1440_gen'
+  mount Msip::Engine, at: "/", as: 'msip'
+  mount Mr519Gen::Engine, at: "/", as: 'mr519_gen'
+  mount Heb412Gen::Engine, at: "/", as: 'heb412_gen'
+  mount Sivel2Gen::Engine, at: "/", as: 'sivel2_gen'
+  mount Cor1440Gen::Engine, at: "/", as: 'cor1440_gen'
 
 end
