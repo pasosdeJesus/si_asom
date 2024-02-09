@@ -391,6 +391,94 @@ CREATE FUNCTION public.msip_eliminar_familiar_inverso() RETURNS trigger
 
 
 --
+-- Name: msip_nombre_vereda(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.msip_nombre_vereda() RETURNS character varying
+    LANGUAGE sql
+    AS $$
+        SELECT 'Vereda '
+      $$;
+
+
+--
+-- Name: msip_ubicacionpre_dpa_nomenclatura(character varying, character varying, character varying, character varying, character varying); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.msip_ubicacionpre_dpa_nomenclatura(pais character varying, departamento character varying, municipio character varying, vereda character varying, centropoblado character varying) RETURNS text[]
+    LANGUAGE sql
+    AS $$
+        SELECT CASE
+        WHEN pais IS NULL OR pais = '' THEN
+          array[NULL, NULL]
+        WHEN departamento IS NULL OR departamento = '' THEN
+          array[pais, NULL]
+        WHEN municipio IS NULL OR municipio = '' THEN
+          array[departamento || ' / ' || pais, departamento]
+        WHEN (vereda IS NULL OR vereda = '') AND
+        (centropoblado IS NULL OR centropoblado = '') THEN
+          array[
+            municipio || ' / ' || departamento || ' / ' || pais,
+            municipio || ' / ' || departamento ]
+        WHEN vereda IS NOT NULL THEN
+          array[
+            msip_nombre_vereda() || vereda || ' / ' ||
+            municipio || ' / ' || departamento || ' / ' || pais,
+            msip_nombre_vereda() || vereda || ' / ' ||
+            municipio || ' / ' || departamento ]
+        ELSE
+          array[
+            centropoblado || ' / ' ||
+            municipio || ' / ' || departamento || ' / ' || pais,
+            centropoblado || ' / ' ||
+            municipio || ' / ' || departamento ]
+         END
+      $$;
+
+
+--
+-- Name: msip_ubicacionpre_id_rtablabasica(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.msip_ubicacionpre_id_rtablabasica() RETURNS integer
+    LANGUAGE sql
+    AS $$
+        SELECT max(id+1) FROM msip_ubicacionpre WHERE 
+          (id+1) NOT IN (SELECT id FROM msip_ubicacionpre) AND 
+          id<10000000
+      $$;
+
+
+--
+-- Name: msip_ubicacionpre_nomenclatura(character varying, character varying, character varying, character varying, character varying, character varying, character varying); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.msip_ubicacionpre_nomenclatura(pais character varying, departamento character varying, municipio character varying, vereda character varying, centropoblado character varying, lugar character varying, sitio character varying) RETURNS text[]
+    LANGUAGE sql
+    AS $$
+        SELECT CASE
+        WHEN (lugar IS NULL OR lugar = '') THEN
+          msip_ubicacionpre_dpa_nomenclatura(pais, departamento,
+          municipio, vereda, centropoblado)
+        WHEN (sitio IS NULL OR sitio= '') THEN
+          array[lugar || ' / ' || 
+            (msip_ubicacionpre_dpa_nomenclatura(pais, departamento,
+              municipio, vereda, centropoblado))[0],
+          lugar || ' / ' || 
+            (msip_ubicacionpre_dpa_nomenclatura(pais, departamento,
+              municipio, vereda, centropoblado))[1] ]
+        ELSE
+          array[sitio || ' / ' || lugar || ' / ' || 
+            (msip_ubicacionpre_dpa_nomenclatura(pais, departamento,
+              municipio, vereda, centropoblado))[0],
+          sitio || ' / ' || lugar || ' / ' || 
+            (msip_ubicacionpre_dpa_nomenclatura(pais, departamento,
+              municipio, vereda, centropoblado))[1] ]
+        END
+      $$;
+
+
+--
 -- Name: probapellido(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -817,19 +905,19 @@ CREATE TABLE public.sivel2_gen_victima (
 --
 
 CREATE VIEW public.cben1 AS
- SELECT caso.id AS id_caso,
-    subv.id_victima,
-    subv.id_persona,
+ SELECT caso.id AS caso_id,
+    subv.victima_id,
+    subv.persona_id,
     1 AS npersona,
-    'total'::text AS total
+    victima.etnia_id
    FROM public.sivel2_gen_caso caso,
     public.sivel2_gen_victima victima,
-    ( SELECT sivel2_gen_victima.persona_id AS id_persona,
-            max(sivel2_gen_victima.id) AS id_victima
+    ( SELECT sivel2_gen_victima.persona_id,
+            max(sivel2_gen_victima.id) AS victima_id
            FROM public.sivel2_gen_victima
           GROUP BY sivel2_gen_victima.persona_id) subv,
     public.msip_persona persona
-  WHERE ((subv.id_victima = victima.id) AND (caso.id = victima.caso_id) AND (persona.id = victima.persona_id));
+  WHERE ((subv.victima_id = victima.id) AND (caso.id = victima.caso_id) AND (true = false) AND (victima.etnia_id = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109])) AND (victima.filiacion_id = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])) AND ((((EXTRACT(year FROM caso.fecha))::text || '-'::text) || lpad((EXTRACT(month FROM caso.fecha))::text, 2, '0'::text)) = '2023-02'::text) AND (victima.organizacion_id = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17])) AND (victima.profesion_id = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 101])) AND (victima.rangoedad_id = ANY (ARRAY[1, 2, 3, 4, 5, 6])) AND (victima.sectorsocial_id = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])) AND (persona.sexo = ANY (ARRAY['F'::bpchar, 'M'::bpchar, 'S'::bpchar])) AND (victima.vinculoestado_id = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40])) AND (persona.id = victima.persona_id));
 
 
 --
@@ -999,27 +1087,27 @@ CREATE TABLE public.msip_ubicacion (
 --
 
 CREATE VIEW public.cben2 AS
- SELECT cben1.id_caso,
-    cben1.id_victima,
-    cben1.id_persona,
+ SELECT cben1.caso_id,
+    cben1.victima_id,
+    cben1.persona_id,
     cben1.npersona,
-    cben1.total,
-    ubicacion.departamento_id AS id_departamento,
+    cben1.etnia_id,
+    ubicacion.departamento_id,
     departamento.deplocal_cod AS departamento_divipola,
     departamento.nombre AS departamento_nombre,
-    ubicacion.municipio_id AS id_municipio,
-    municipio.munlocal_cod AS municipio_divipola,
+    ubicacion.municipio_id,
+    ((departamento.deplocal_cod * 1000) + municipio.munlocal_cod) AS municipio_divipola,
     municipio.nombre AS municipio_nombre,
-    ubicacion.centropoblado_id AS id_clase,
-    clase.cplocal_cod AS clase_divipola,
-    clase.nombre AS clase_nombre
+    ubicacion.centropoblado_id,
+    centropoblado.cplocal_cod AS centropoblado_divipola,
+    centropoblado.nombre AS centropoblado_nombre
    FROM (((((public.cben1
-     JOIN public.sivel2_gen_caso caso ON ((cben1.id_caso = caso.id)))
+     JOIN public.sivel2_gen_caso caso ON ((cben1.caso_id = caso.id)))
      LEFT JOIN public.msip_ubicacion ubicacion ON ((caso.ubicacion_id = ubicacion.id)))
      LEFT JOIN public.msip_departamento departamento ON ((ubicacion.departamento_id = departamento.id)))
      LEFT JOIN public.msip_municipio municipio ON ((ubicacion.municipio_id = municipio.id)))
-     LEFT JOIN public.msip_centropoblado clase ON ((ubicacion.centropoblado_id = clase.id)))
-  GROUP BY cben1.id_caso, cben1.id_victima, cben1.id_persona, cben1.npersona, cben1.total, ubicacion.departamento_id, departamento.deplocal_cod, departamento.nombre, ubicacion.municipio_id, municipio.munlocal_cod, municipio.nombre, ubicacion.centropoblado_id, clase.cplocal_cod, clase.nombre;
+     LEFT JOIN public.msip_centropoblado centropoblado ON ((ubicacion.centropoblado_id = centropoblado.id)))
+  GROUP BY cben1.caso_id, cben1.victima_id, cben1.persona_id, cben1.npersona, cben1.etnia_id, ubicacion.departamento_id, departamento.deplocal_cod, departamento.nombre, ubicacion.municipio_id, ((departamento.deplocal_cod * 1000) + municipio.munlocal_cod), municipio.nombre, ubicacion.centropoblado_id, centropoblado.cplocal_cod, centropoblado.nombre;
 
 
 --
@@ -4117,7 +4205,7 @@ CREATE TABLE public.msip_tsitio (
 CREATE TABLE public.msip_ubicacionpre (
     id bigint NOT NULL,
     nombre character varying(2000) NOT NULL COLLATE public.es_co_utf_8,
-    pais_id integer,
+    pais_id integer NOT NULL,
     departamento_id integer,
     municipio_id integer,
     centropoblado_id integer,
@@ -4128,7 +4216,11 @@ CREATE TABLE public.msip_ubicacionpre (
     longitud double precision,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    nombre_sin_pais character varying(500)
+    nombre_sin_pais character varying(500),
+    vereda_id integer,
+    observaciones character varying(5000),
+    fechacreacion date DEFAULT now() NOT NULL,
+    fechadeshabilitacion date
 );
 
 
@@ -6728,6 +6820,14 @@ ALTER TABLE ONLY public.msip_centropoblado
 
 
 --
+-- Name: msip_centropoblado msip_centropoblado_municipio_id_id_unico; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_centropoblado
+    ADD CONSTRAINT msip_centropoblado_municipio_id_id_unico UNIQUE (municipio_id, id);
+
+
+--
 -- Name: msip_centropoblado msip_centropoblado_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6757,6 +6857,14 @@ ALTER TABLE ONLY public.msip_departamento
 
 ALTER TABLE ONLY public.msip_departamento
     ADD CONSTRAINT msip_departamento_id_pais_id_deplocal_unico UNIQUE (pais_id, deplocal_cod);
+
+
+--
+-- Name: msip_departamento msip_departamento_pais_id_id_unico; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_departamento
+    ADD CONSTRAINT msip_departamento_pais_id_id_unico UNIQUE (pais_id, id);
 
 
 --
@@ -6813,6 +6921,14 @@ ALTER TABLE ONLY public.msip_grupo
 
 ALTER TABLE ONLY public.msip_grupoper
     ADD CONSTRAINT msip_grupoper_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: msip_municipio msip_municipio_departamento_id_id_unico; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_municipio
+    ADD CONSTRAINT msip_municipio_departamento_id_id_unico UNIQUE (departamento_id, id);
 
 
 --
@@ -7013,6 +7129,14 @@ ALTER TABLE ONLY public.msip_ubicacion
 
 ALTER TABLE ONLY public.msip_ubicacionpre
     ADD CONSTRAINT msip_ubicacionpre_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: msip_vereda msip_vereda_municipio_id_id_unico; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_vereda
+    ADD CONSTRAINT msip_vereda_municipio_id_id_unico UNIQUE (municipio_id, id);
 
 
 --
@@ -7720,6 +7844,13 @@ CREATE INDEX index_msip_ubicacion_on_pais_id ON public.msip_ubicacion USING btre
 
 
 --
+-- Name: index_msip_ubicacionpre_on_vereda_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_msip_ubicacionpre_on_vereda_id ON public.msip_ubicacionpre USING btree (vereda_id);
+
+
+--
 -- Name: index_sivel2_gen_caso_solicitud_on_caso_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7920,6 +8051,76 @@ CREATE INDEX msip_persona_sexo ON public.msip_persona USING btree (sexo);
 --
 
 CREATE INDEX msip_persona_sexo_ind ON public.msip_persona USING btree (sexo);
+
+
+--
+-- Name: msip_ubicacionpre_centropoblado_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX msip_ubicacionpre_centropoblado_id_idx ON public.msip_ubicacionpre USING btree (centropoblado_id);
+
+
+--
+-- Name: msip_ubicacionpre_departamento_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX msip_ubicacionpre_departamento_id_idx ON public.msip_ubicacionpre USING btree (departamento_id);
+
+
+--
+-- Name: msip_ubicacionpre_departamento_id_municipio_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX msip_ubicacionpre_departamento_id_municipio_id_idx ON public.msip_ubicacionpre USING btree (departamento_id, municipio_id);
+
+
+--
+-- Name: msip_ubicacionpre_municipio_id_centropoblado_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX msip_ubicacionpre_municipio_id_centropoblado_id_idx ON public.msip_ubicacionpre USING btree (municipio_id, centropoblado_id);
+
+
+--
+-- Name: msip_ubicacionpre_municipio_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX msip_ubicacionpre_municipio_id_idx ON public.msip_ubicacionpre USING btree (municipio_id);
+
+
+--
+-- Name: msip_ubicacionpre_municipio_id_vereda_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX msip_ubicacionpre_municipio_id_vereda_id_idx ON public.msip_ubicacionpre USING btree (municipio_id, vereda_id);
+
+
+--
+-- Name: msip_ubicacionpre_pais_id_departamento_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX msip_ubicacionpre_pais_id_departamento_id_idx ON public.msip_ubicacionpre USING btree (pais_id, departamento_id);
+
+
+--
+-- Name: msip_ubicacionpre_pais_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX msip_ubicacionpre_pais_id_idx ON public.msip_ubicacionpre USING btree (pais_id);
+
+
+--
+-- Name: msip_ubicacionpre_tsitio_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX msip_ubicacionpre_tsitio_id_idx ON public.msip_ubicacionpre USING btree (vereda_id);
+
+
+--
+-- Name: msip_ubicacionpre_vereda_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX msip_ubicacionpre_vereda_id_idx ON public.msip_ubicacionpre USING btree (vereda_id);
 
 
 --
@@ -8998,6 +9199,14 @@ ALTER TABLE ONLY public.mr519_gen_encuestapersona
 
 
 --
+-- Name: msip_ubicacionpre fk_rails_558c98f353; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_ubicacionpre
+    ADD CONSTRAINT fk_rails_558c98f353 FOREIGN KEY (vereda_id) REFERENCES public.msip_vereda(id);
+
+
+--
 -- Name: msip_etiqueta_municipio fk_rails_5672729520; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9742,6 +9951,38 @@ ALTER TABLE ONLY public.msip_solicitud
 
 
 --
+-- Name: msip_ubicacionpre fk_ubicacionpre_departamento_municipio; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_ubicacionpre
+    ADD CONSTRAINT fk_ubicacionpre_departamento_municipio FOREIGN KEY (departamento_id, municipio_id) REFERENCES public.msip_municipio(departamento_id, id);
+
+
+--
+-- Name: msip_ubicacionpre fk_ubicacionpre_municipio_centropoblado; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_ubicacionpre
+    ADD CONSTRAINT fk_ubicacionpre_municipio_centropoblado FOREIGN KEY (municipio_id, centropoblado_id) REFERENCES public.msip_centropoblado(municipio_id, id);
+
+
+--
+-- Name: msip_ubicacionpre fk_ubicacionpre_municipio_vereda; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_ubicacionpre
+    ADD CONSTRAINT fk_ubicacionpre_municipio_vereda FOREIGN KEY (municipio_id, vereda_id) REFERENCES public.msip_vereda(municipio_id, id);
+
+
+--
+-- Name: msip_ubicacionpre fk_ubicacionpre_pais_departamento; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.msip_ubicacionpre
+    ADD CONSTRAINT fk_ubicacionpre_pais_departamento FOREIGN KEY (pais_id, departamento_id) REFERENCES public.msip_departamento(pais_id, id);
+
+
+--
 -- Name: cor1440_gen_proyectofinanciero lf_proyectofinanciero_responsable; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10188,450 +10429,457 @@ ALTER TABLE ONLY public.sivel2_gen_victimacolectiva_vinculoestado
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20131128151014'),
-('20131204135932'),
-('20131204140000'),
-('20131204143718'),
-('20131204183530'),
-('20131206081531'),
-('20131210221541'),
-('20131220103409'),
-('20131223175141'),
-('20140117212555'),
-('20140129151136'),
-('20140207102709'),
-('20140207102739'),
-('20140211162355'),
-('20140211164659'),
-('20140211172443'),
-('20140313012209'),
-('20140514142421'),
-('20140518120059'),
-('20140527110223'),
-('20140528043115'),
-('20140804202100'),
-('20140804202101'),
-('20140804202958'),
-('20140815111351'),
-('20140827142659'),
-('20140901105741'),
-('20140901106000'),
-('20140909165233'),
-('20140918115412'),
-('20140922102737'),
-('20140922110956'),
-('20141002140242'),
-('20141111102451'),
-('20141111203313'),
-('20150313153722'),
-('20150317084737'),
-('20150413000000'),
-('20150413160156'),
-('20150413160157'),
-('20150413160158'),
-('20150413160159'),
-('20150416074423'),
-('20150416090140'),
-('20150416095646'),
-('20150416101228'),
-('20150417071153'),
-('20150417180314'),
-('20150419000000'),
-('20150420104520'),
-('20150420110000'),
-('20150420125522'),
-('20150420153835'),
-('20150420200255'),
-('20150503120915'),
-('20150505084914'),
-('20150510125926'),
-('20150513112126'),
-('20150513130058'),
-('20150513130510'),
-('20150513160835'),
-('20150520115257'),
-('20150521092657'),
-('20150521181918'),
-('20150521191227'),
-('20150528100944'),
-('20150602094513'),
-('20150602095241'),
-('20150602104342'),
-('20150609094809'),
-('20150609094820'),
-('20150616095023'),
-('20150616100351'),
-('20150616100551'),
-('20150624200701'),
-('20150707164448'),
-('20150709203137'),
-('20150710012947'),
-('20150710114451'),
-('20150716085420'),
-('20150716171420'),
-('20150716192356'),
-('20150717101243'),
-('20150720115701'),
-('20150720120236'),
-('20150724003736'),
-('20150803082520'),
-('20150809032138'),
-('20150826000000'),
-('20151020203421'),
-('20151124110943'),
-('20151127102425'),
-('20151130101417'),
-('20160308213334'),
-('20160316093659'),
-('20160316094627'),
-('20160316100620'),
-('20160316100621'),
-('20160316100622'),
-('20160316100623'),
-('20160316100624'),
-('20160316100625'),
-('20160316100626'),
-('20160519195544'),
-('20160719195853'),
-('20160719214520'),
-('20160724160049'),
-('20160724164110'),
-('20160725123242'),
-('20160725131347'),
-('20160805103310'),
-('20161009111443'),
-('20161010152631'),
-('20161026110802'),
-('20161027233011'),
-('20161103080156'),
-('20161103081041'),
-('20161103083352'),
-('20161108102349'),
-('20170405104322'),
-('20170406213334'),
-('20170413185012'),
-('20170414035328'),
-('20170503145808'),
-('20170526084502'),
-('20170526100040'),
-('20170526124219'),
-('20170526131129'),
-('20170529020218'),
-('20170529154413'),
-('20170607125033'),
-('20170609131212'),
-('20170928100402'),
-('20171011212156'),
-('20171011213037'),
-('20171011213405'),
-('20171011213548'),
-('20171019133203'),
-('20171128234148'),
-('20171130125044'),
-('20171130133741'),
-('20171212001011'),
-('20171217135318'),
-('20180126035129'),
-('20180126055129'),
-('20180212223621'),
-('20180219032546'),
-('20180220103644'),
-('20180220104234'),
-('20180223091622'),
-('20180225152848'),
-('20180320230847'),
-('20180427194732'),
-('20180509111948'),
-('20180519102415'),
-('20180611222635'),
-('20180612024009'),
-('20180612030340'),
-('20180626123640'),
-('20180627031905'),
-('20180717134314'),
-('20180717135811'),
-('20180718094829'),
-('20180719015902'),
-('20180720140443'),
-('20180720171842'),
-('20180724135332'),
-('20180724202353'),
-('20180726213123'),
-('20180726234755'),
-('20180801105304'),
-('20180810220807'),
-('20180810221619'),
-('20180812220011'),
-('20180813110808'),
-('20180905031342'),
-('20180905031617'),
-('20180910132139'),
-('20180912114413'),
-('20180914153010'),
-('20180914170936'),
-('20180917072914'),
-('20180918195008'),
-('20180918195821'),
-('20180920031351'),
-('20180921120954'),
-('20181011104537'),
-('20181012110629'),
-('20181017094456'),
-('20181018003945'),
-('20181113025055'),
-('20181130112320'),
-('20181213103204'),
-('20181218165548'),
-('20181218165559'),
-('20181218215222'),
-('20181219085236'),
-('20181224112813'),
-('20181227093834'),
-('20181227094559'),
-('20181227095037'),
-('20181227100523'),
-('20181227114431'),
-('20181227210510'),
-('20181228014507'),
-('20190109125417'),
-('20190110191802'),
-('20190111092816'),
-('20190111102201'),
-('20190128032125'),
-('20190205203619'),
-('20190206005635'),
-('20190208103518'),
-('20190308195346'),
-('20190322102311'),
-('20190326150948'),
-('20190331111015'),
-('20190401175521'),
-('20190403202049'),
-('20190406141156'),
-('20190406164301'),
-('20190418011743'),
-('20190418014012'),
-('20190418123920'),
-('20190418142712'),
-('20190426125052'),
-('20190426131119'),
-('20190430112229'),
-('20190603213842'),
-('20190603234145'),
-('20190605143420'),
-('20190612101211'),
-('20190612111043'),
-('20190612113734'),
-('20190612198000'),
-('20190612200000'),
-('20190613155738'),
-('20190613155843'),
-('20190618135559'),
-('20190625112649'),
-('20190625140232'),
-('20190703044126'),
-('20190715083916'),
-('20190715182611'),
-('20190726203302'),
-('20190804223012'),
-('20190818013251'),
-('20190830172824'),
-('20190924013712'),
-('20190924112646'),
-('20190926104116'),
-('20190926104551'),
-('20190926133640'),
-('20190926143845'),
-('20191012042159'),
-('20191016100031'),
-('20191021021621'),
-('20191205200007'),
-('20191205202150'),
-('20191205204511'),
-('20191219011910'),
-('20191231102721'),
-('20200106174710'),
-('20200116003807'),
-('20200211112230'),
-('20200212103617'),
-('20200221181049'),
-('20200224134339'),
-('20200228235200'),
-('20200229005951'),
-('20200302194744'),
-('20200314033958'),
-('20200319183515'),
-('20200320152017'),
-('20200324164130'),
-('20200326212919'),
-('20200327004702'),
-('20200330174434'),
-('20200411094012'),
-('20200411095105'),
-('20200415021859'),
-('20200415102103'),
-('20200422103916'),
-('20200423092828'),
-('20200427091939'),
-('20200428155536'),
-('20200430101709'),
-('20200622193241'),
-('20200706113547'),
-('20200720005020'),
-('20200720013144'),
-('20200722210144'),
-('20200723133542'),
-('20200727021707'),
-('20200802112451'),
-('20200810164753'),
-('20200907165157'),
-('20200907174303'),
-('20200916022934'),
-('20200919003430'),
-('20200921123831'),
-('20201009004421'),
-('20201119125643'),
-('20201121162913'),
-('20201124035715'),
-('20201124050637'),
-('20201124142002'),
-('20201124145625'),
-('20201130020715'),
-('20201201015501'),
-('20201205041350'),
-('20201205213317'),
-('20201214215209'),
-('20201231194433'),
-('20210108202122'),
-('20210116090353'),
-('20210116104426'),
-('20210117234541'),
-('20210201101144'),
-('20210201112227'),
-('20210202144410'),
-('20210202201520'),
-('20210202201530'),
-('20210206191033'),
-('20210226155035'),
-('20210308183041'),
-('20210308211112'),
-('20210308214507'),
-('20210401194637'),
-('20210401210102'),
-('20210414201956'),
-('20210417152053'),
-('20210419161145'),
-('20210428143811'),
-('20210430160739'),
-('20210514201449'),
-('20210524121112'),
-('20210531223906'),
-('20210601023450'),
-('20210601023557'),
-('20210608180736'),
-('20210609024118'),
-('20210614120835'),
-('20210614212220'),
-('20210616003251'),
-('20210619191706'),
-('20210727111355'),
-('20210728214424'),
-('20210730120340'),
-('20210823162357'),
-('20210924022913'),
-('20211010164634'),
-('20211011214752'),
-('20211011233005'),
-('20211019121200'),
-('20211020221141'),
-('20211024105450'),
-('20211024105507'),
-('20211117200456'),
-('20211119085218'),
-('20211119110211'),
-('20211216125250'),
-('20220122105047'),
-('20220213031520'),
-('20220214121713'),
-('20220214232150'),
-('20220215095957'),
-('20220316025851'),
-('20220323001338'),
-('20220323001645'),
-('20220323004929'),
-('20220413123127'),
-('20220417203841'),
-('20220417220914'),
-('20220417221010'),
-('20220420143020'),
-('20220420154535'),
-('20220422190546'),
-('20220428145059'),
-('20220525122150'),
-('20220601111520'),
-('20220613224844'),
-('20220713200101'),
-('20220713200444'),
-('20220714191500'),
-('20220714191505'),
-('20220714191510'),
-('20220714191555'),
-('20220719111148'),
-('20220721170452'),
-('20220721200858'),
-('20220722000850'),
-('20220722192214'),
-('20220805181901'),
-('20220808141102'),
-('20220822132754'),
-('20221005165307'),
-('20221020172553'),
-('20221024000000'),
-('20221024000100'),
-('20221024221557'),
-('20221025025402'),
-('20221102144613'),
-('20221102145906'),
-('20221112113323'),
-('20221118010717'),
-('20221118023539'),
-('20221118032223'),
-('20221201143440'),
-('20221201154025'),
-('20221208173349'),
-('20221209142327'),
-('20221209165024'),
-('20221210155527'),
-('20221211005549'),
-('20221211012152'),
-('20221211141207'),
-('20221211141208'),
-('20221211141209'),
-('20221212021533'),
-('20230113133200'),
-('20230127041839'),
-('20230127123623'),
-('20230301145222'),
-('20230301212546'),
-('20230404025025'),
-('20230405012229'),
-('20230405032350'),
-('20230405141724'),
-('20230406021624'),
-('20230418194845'),
-('20230504084246'),
-('20230613111532'),
-('20230616203948'),
-('20230622205529'),
-('20230622205530'),
-('20230712163859'),
-('20230722180204'),
-('20230723011110'),
-('20230927001422'),
-('20231007095930'),
-('20231120094041'),
-('20231120175125'),
+('20231208162022'),
+('20231205205600'),
+('20231205205549'),
+('20231205202418'),
+('20231125230000'),
+('20231125152810'),
+('20231125152802'),
+('20231124200056'),
+('20231121203443'),
 ('20231121135551'),
-('20231121203443');
-
+('20231120175125'),
+('20231120094041'),
+('20231007095930'),
+('20230927001422'),
+('20230723011110'),
+('20230722180204'),
+('20230712163859'),
+('20230622205530'),
+('20230622205529'),
+('20230616203948'),
+('20230613111532'),
+('20230504084246'),
+('20230418194845'),
+('20230406021624'),
+('20230405141724'),
+('20230405032350'),
+('20230405012229'),
+('20230404025025'),
+('20230301212546'),
+('20230301145222'),
+('20230127123623'),
+('20230127041839'),
+('20230113133200'),
+('20221212021533'),
+('20221211141209'),
+('20221211141208'),
+('20221211141207'),
+('20221211012152'),
+('20221211005549'),
+('20221210155527'),
+('20221209165024'),
+('20221209142327'),
+('20221208173349'),
+('20221201154025'),
+('20221201143440'),
+('20221118032223'),
+('20221118023539'),
+('20221118010717'),
+('20221112113323'),
+('20221102145906'),
+('20221102144613'),
+('20221025025402'),
+('20221024221557'),
+('20221024000100'),
+('20221024000000'),
+('20221020172553'),
+('20221005165307'),
+('20220822132754'),
+('20220808141102'),
+('20220805181901'),
+('20220722192214'),
+('20220722000850'),
+('20220721200858'),
+('20220721170452'),
+('20220719111148'),
+('20220714191555'),
+('20220714191510'),
+('20220714191505'),
+('20220714191500'),
+('20220713200444'),
+('20220713200101'),
+('20220613224844'),
+('20220601111520'),
+('20220525122150'),
+('20220428145059'),
+('20220422190546'),
+('20220420154535'),
+('20220420143020'),
+('20220417221010'),
+('20220417220914'),
+('20220417203841'),
+('20220413123127'),
+('20220323004929'),
+('20220323001645'),
+('20220323001338'),
+('20220316025851'),
+('20220215095957'),
+('20220214232150'),
+('20220214121713'),
+('20220213031520'),
+('20220122105047'),
+('20211216125250'),
+('20211119110211'),
+('20211119085218'),
+('20211117200456'),
+('20211024105507'),
+('20211024105450'),
+('20211020221141'),
+('20211019121200'),
+('20211011233005'),
+('20211011214752'),
+('20211010164634'),
+('20210924022913'),
+('20210823162357'),
+('20210730120340'),
+('20210728214424'),
+('20210727111355'),
+('20210619191706'),
+('20210616003251'),
+('20210614212220'),
+('20210614120835'),
+('20210609024118'),
+('20210608180736'),
+('20210601023557'),
+('20210601023450'),
+('20210531223906'),
+('20210524121112'),
+('20210514201449'),
+('20210430160739'),
+('20210428143811'),
+('20210419161145'),
+('20210417152053'),
+('20210414201956'),
+('20210401210102'),
+('20210401194637'),
+('20210308214507'),
+('20210308211112'),
+('20210308183041'),
+('20210226155035'),
+('20210206191033'),
+('20210202201530'),
+('20210202201520'),
+('20210202144410'),
+('20210201112227'),
+('20210201101144'),
+('20210117234541'),
+('20210116104426'),
+('20210116090353'),
+('20210108202122'),
+('20201231194433'),
+('20201214215209'),
+('20201205213317'),
+('20201205041350'),
+('20201201015501'),
+('20201130020715'),
+('20201124145625'),
+('20201124142002'),
+('20201124050637'),
+('20201124035715'),
+('20201121162913'),
+('20201119125643'),
+('20201009004421'),
+('20200921123831'),
+('20200919003430'),
+('20200916022934'),
+('20200907174303'),
+('20200907165157'),
+('20200810164753'),
+('20200802112451'),
+('20200727021707'),
+('20200723133542'),
+('20200722210144'),
+('20200720013144'),
+('20200720005020'),
+('20200706113547'),
+('20200622193241'),
+('20200430101709'),
+('20200428155536'),
+('20200427091939'),
+('20200423092828'),
+('20200422103916'),
+('20200415102103'),
+('20200415021859'),
+('20200411095105'),
+('20200411094012'),
+('20200330174434'),
+('20200327004702'),
+('20200326212919'),
+('20200324164130'),
+('20200320152017'),
+('20200319183515'),
+('20200314033958'),
+('20200302194744'),
+('20200229005951'),
+('20200228235200'),
+('20200224134339'),
+('20200221181049'),
+('20200212103617'),
+('20200211112230'),
+('20200116003807'),
+('20200106174710'),
+('20191231102721'),
+('20191219011910'),
+('20191205204511'),
+('20191205202150'),
+('20191205200007'),
+('20191021021621'),
+('20191016100031'),
+('20191012042159'),
+('20190926143845'),
+('20190926133640'),
+('20190926104551'),
+('20190926104116'),
+('20190924112646'),
+('20190924013712'),
+('20190830172824'),
+('20190818013251'),
+('20190804223012'),
+('20190726203302'),
+('20190715182611'),
+('20190715083916'),
+('20190703044126'),
+('20190625140232'),
+('20190625112649'),
+('20190618135559'),
+('20190613155843'),
+('20190613155738'),
+('20190612200000'),
+('20190612198000'),
+('20190612113734'),
+('20190612111043'),
+('20190612101211'),
+('20190605143420'),
+('20190603234145'),
+('20190603213842'),
+('20190430112229'),
+('20190426131119'),
+('20190426125052'),
+('20190418142712'),
+('20190418123920'),
+('20190418014012'),
+('20190418011743'),
+('20190406164301'),
+('20190406141156'),
+('20190403202049'),
+('20190401175521'),
+('20190331111015'),
+('20190326150948'),
+('20190322102311'),
+('20190308195346'),
+('20190208103518'),
+('20190206005635'),
+('20190205203619'),
+('20190128032125'),
+('20190111102201'),
+('20190111092816'),
+('20190110191802'),
+('20190109125417'),
+('20181228014507'),
+('20181227210510'),
+('20181227114431'),
+('20181227100523'),
+('20181227095037'),
+('20181227094559'),
+('20181227093834'),
+('20181224112813'),
+('20181219085236'),
+('20181218215222'),
+('20181218165559'),
+('20181218165548'),
+('20181213103204'),
+('20181130112320'),
+('20181113025055'),
+('20181018003945'),
+('20181017094456'),
+('20181012110629'),
+('20181011104537'),
+('20180921120954'),
+('20180920031351'),
+('20180918195821'),
+('20180918195008'),
+('20180917072914'),
+('20180914170936'),
+('20180914153010'),
+('20180912114413'),
+('20180910132139'),
+('20180905031617'),
+('20180905031342'),
+('20180813110808'),
+('20180812220011'),
+('20180810221619'),
+('20180810220807'),
+('20180801105304'),
+('20180726234755'),
+('20180726213123'),
+('20180724202353'),
+('20180724135332'),
+('20180720171842'),
+('20180720140443'),
+('20180719015902'),
+('20180718094829'),
+('20180717135811'),
+('20180717134314'),
+('20180627031905'),
+('20180626123640'),
+('20180612030340'),
+('20180612024009'),
+('20180611222635'),
+('20180519102415'),
+('20180509111948'),
+('20180427194732'),
+('20180320230847'),
+('20180225152848'),
+('20180223091622'),
+('20180220104234'),
+('20180220103644'),
+('20180219032546'),
+('20180212223621'),
+('20180126055129'),
+('20180126035129'),
+('20171217135318'),
+('20171212001011'),
+('20171130133741'),
+('20171130125044'),
+('20171128234148'),
+('20171019133203'),
+('20171011213548'),
+('20171011213405'),
+('20171011213037'),
+('20171011212156'),
+('20170928100402'),
+('20170609131212'),
+('20170607125033'),
+('20170529154413'),
+('20170529020218'),
+('20170526131129'),
+('20170526124219'),
+('20170526100040'),
+('20170526084502'),
+('20170503145808'),
+('20170414035328'),
+('20170413185012'),
+('20170406213334'),
+('20170405104322'),
+('20161108102349'),
+('20161103083352'),
+('20161103081041'),
+('20161103080156'),
+('20161027233011'),
+('20161026110802'),
+('20161010152631'),
+('20161009111443'),
+('20160805103310'),
+('20160725131347'),
+('20160725123242'),
+('20160724164110'),
+('20160724160049'),
+('20160719214520'),
+('20160719195853'),
+('20160519195544'),
+('20160316100626'),
+('20160316100625'),
+('20160316100624'),
+('20160316100623'),
+('20160316100622'),
+('20160316100621'),
+('20160316100620'),
+('20160316094627'),
+('20160316093659'),
+('20160308213334'),
+('20151130101417'),
+('20151127102425'),
+('20151124110943'),
+('20151020203421'),
+('20150826000000'),
+('20150809032138'),
+('20150803082520'),
+('20150724003736'),
+('20150720120236'),
+('20150720115701'),
+('20150717101243'),
+('20150716192356'),
+('20150716171420'),
+('20150716085420'),
+('20150710114451'),
+('20150710012947'),
+('20150709203137'),
+('20150707164448'),
+('20150624200701'),
+('20150616100551'),
+('20150616100351'),
+('20150616095023'),
+('20150609094820'),
+('20150609094809'),
+('20150602104342'),
+('20150602095241'),
+('20150602094513'),
+('20150528100944'),
+('20150521191227'),
+('20150521181918'),
+('20150521092657'),
+('20150520115257'),
+('20150513160835'),
+('20150513130510'),
+('20150513130058'),
+('20150513112126'),
+('20150510125926'),
+('20150505084914'),
+('20150503120915'),
+('20150420200255'),
+('20150420153835'),
+('20150420125522'),
+('20150420110000'),
+('20150420104520'),
+('20150419000000'),
+('20150417180314'),
+('20150417071153'),
+('20150416101228'),
+('20150416095646'),
+('20150416090140'),
+('20150416074423'),
+('20150413160159'),
+('20150413160158'),
+('20150413160157'),
+('20150413160156'),
+('20150413000000'),
+('20150317084737'),
+('20150313153722'),
+('20141111203313'),
+('20141111102451'),
+('20141002140242'),
+('20140922110956'),
+('20140922102737'),
+('20140918115412'),
+('20140909165233'),
+('20140901106000'),
+('20140901105741'),
+('20140827142659'),
+('20140815111351'),
+('20140804202958'),
+('20140804202101'),
+('20140804202100'),
+('20140528043115'),
+('20140527110223'),
+('20140518120059'),
+('20140514142421'),
+('20140313012209'),
+('20140211172443'),
+('20140211164659'),
+('20140211162355'),
+('20140207102739'),
+('20140207102709'),
+('20140129151136'),
+('20140117212555'),
+('20131223175141'),
+('20131220103409'),
+('20131210221541'),
+('20131206081531'),
+('20131204183530'),
+('20131204143718'),
+('20131204140000'),
+('20131204135932'),
+('20131128151014');
 
