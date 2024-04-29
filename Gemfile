@@ -129,8 +129,6 @@ group :test do
 
   gem "cuprite"
 
-  gem "selenium-webdriver"
-
   gem "simplecov" # Debido a https://github.com/codeclimate/test-reporter/issues/418
 
 end
