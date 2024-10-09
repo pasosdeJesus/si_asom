@@ -45,9 +45,9 @@ gem "prawnto_2",  :require => "prawnto"
 
 gem "prawn-table"
 
-  gem "rack", "~> 2"
+gem "rack", "~> 2"
 
-  gem "rails", ">= 7.1", "<7.2"
+gem "rails", "~> 7.2"
 
 gem "rails-i18n"
 
@@ -80,23 +80,28 @@ gem "will_paginate" # Listados en páginas
 
 gem "msip", # Motor generico
   git: "https://gitlab.com/pasosdeJesus/msip.git", branch: "v2.2"
-  #path: "../msip"
+  #path: "../msip-2.2"
 
 gem "mr519_gen", # Motor de gestion de formularios y encuestas
   git: "https://gitlab.com/pasosdeJesus/mr519_gen.git", branch: "v2.2"
-  #path: "../mr519_gen"
+  #path: "../mr519_gen-2.2"
 
 gem "heb412_gen",  # Motor de nube y llenado de plantillas
   git: "https://gitlab.com/pasosdeJesus/heb412_gen.git", branch: "v2.2"
-  #path: "../heb412_gen"
+  #path: "../heb412_gen-2.2"
 
 gem "sivel2_gen", # Motor para manejo de casos
   git: "https://gitlab.com/pasosdeJesus/sivel2_gen.git", branch: "v2.2"
-  #path: "../sivel2_gen"
+  #path: "../sivel2_gen-2.2"
 
 gem "cor1440_gen", # Motor para manejo de casos
   git: "https://gitlab.com/pasosdeJesus/cor1440_gen.git", branch: "v2.2"
-  #path: "../cor1440_gen"
+  #path: "../cor1440_gen-2.2"
+
+gem "jos19", # Motor para mezclar casos y actividades
+  git: "https://gitlab.com/pasosdeJesus/jos19.git", branch: "v2.2"
+  #path: "../jos19-2.2"
+
 
 
 group  :development, :test do
