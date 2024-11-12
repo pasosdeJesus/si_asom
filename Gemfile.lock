@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/cor1440_gen.git
-  revision: 560d55bccd905e69d6e6848fc54897f7d06ddbc0
+  revision: 429921d75b14aa42474bbcab03d86258f1ee3d37
   branch: v2.2
   specs:
     cor1440_gen (2.2.0.beta7)
@@ -31,7 +31,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/heb412_gen.git
-  revision: ec21b45d679142f8129e08a6ee3e86e397d3cc7e
+  revision: 6386cd2262bc279ed81b852ba434ebb8748b36c3
   branch: v2.2
   specs:
     heb412_gen (2.2.0.beta7)
@@ -42,14 +42,14 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/jos19.git
-  revision: 242bdc3d2cf594353cdd1e9a44fe33098ca91d6c
+  revision: cda7c671ebde0335131f8a33102e5e85be623cba
   branch: v2.2
   specs:
     jos19 (2.2.0.beta7)
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/mr519_gen.git
-  revision: a1f4c171371af06da20667d8036cf0d115325e52
+  revision: df224091f760587de2fd3ac5aed5b03e03ffaf53
   branch: v2.2
   specs:
     mr519_gen (2.2.0.beta7)
@@ -58,7 +58,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/msip.git
-  revision: b86454c007d6a29df5a375899fc963082285b8e9
+  revision: 4ec173a448a8e82860b802fd17bce09f28180e3b
   branch: v2.2
   specs:
     msip (2.2.0.beta7)
@@ -78,7 +78,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/sivel2_gen.git
-  revision: 285b2ac29270ac9102a586c851797eaff0c4035b
+  revision: ede323174c7ac10cf20604eeb03682614f7b1c2c
   branch: v2.2
   specs:
     sivel2_gen (2.2.0.beta7)
@@ -286,7 +286,7 @@ GEM
     orm_adapter (0.5.0)
     parslet (2.0.0)
     pdf-core (0.10.0)
-    pg (1.5.8)
+    pg (1.5.9)
     prawn (2.5.0)
       matrix (~> 0.4)
       pdf-core (~> 0.10.0)
@@ -336,7 +336,7 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
-    rails-i18n (7.0.9)
+    rails-i18n (7.0.10)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 8)
     railties (7.2.1.1)
@@ -488,4 +488,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   2.5.22
+   2.5.23
