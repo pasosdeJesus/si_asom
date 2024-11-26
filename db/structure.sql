@@ -802,7 +802,6 @@ CREATE TABLE public.cor1440_gen_actividad (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     oficina_id integer NOT NULL,
-    rangoedadac_id integer,
     usuario_id integer NOT NULL,
     lugar character varying(500)
 );
@@ -1523,7 +1522,8 @@ CREATE TABLE public.cor1440_gen_indicadorpf (
     numero character varying(15) NOT NULL,
     indicador character varying(5000) NOT NULL,
     tipoindicador_id integer,
-    objetivopf_id integer
+    objetivopf_id integer,
+    CONSTRAINT objetivo_xor_resultado CHECK ((((objetivopf_id IS NOT NULL) OR (resultadopf_id IS NOT NULL)) AND ((objetivopf_id IS NULL) OR (resultadopf_id IS NULL))))
 );
 
 
@@ -4011,7 +4011,7 @@ CREATE TABLE public.msip_vereda (
     id bigint NOT NULL,
     nombre character varying(500) NOT NULL COLLATE public.es_co_utf_8,
     municipio_id integer,
-    verlocal_id integer,
+    verlocal_cod integer,
     observaciones character varying(5000),
     latitud double precision,
     longitud double precision,
@@ -10274,6 +10274,11 @@ ALTER TABLE ONLY public.sivel2_gen_victimacolectiva_vinculoestado
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241125115043'),
+('20241119195733'),
+('20241119180614'),
+('20241113150932'),
+('20241113141404'),
 ('20241106114858'),
 ('20241104072046'),
 ('20241006115708'),
