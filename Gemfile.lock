@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/cor1440_gen.git
-  revision: 40876a9f23e3a4008c21f83425cd887b27b22a35
+  revision: ec4a1a76842dd390775e8449ac78c5062dfba687
   branch: v2.2
   specs:
     cor1440_gen (2.2.0)
@@ -42,7 +42,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/jos19.git
-  revision: 603d8f56f37ece6eaaff69ef2abaf1e20eb1b3bc
+  revision: 63ac6ab648d5f86a5a631e5864f22432026b117c
   branch: v2.2
   specs:
     jos19 (2.2.0)
@@ -78,7 +78,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/pasosdeJesus/sivel2_gen.git
-  revision: 460b2a6e2017707e4f8e045421617cb22029ce24
+  revision: f73d396c99ffdf3372efbf0dd86aaac36a6b9244
   branch: v2.2
   specs:
     sivel2_gen (2.2.0)
@@ -292,7 +292,7 @@ GEM
     orm_adapter (0.5.0)
     parslet (2.0.0)
     pdf-core (0.10.0)
-    pg (1.6.0)
+    pg (1.6.1)
     pp (0.6.2)
       prettyprint
     prawn (2.5.0)
